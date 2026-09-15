@@ -15,7 +15,7 @@ The form is ready to POST `FormData` to Formspree, Web3Forms, or a serverless en
 
 ## Deployment
 
-`vite.config.js` uses relative asset URLs, so the build works at a custom domain or a GitHub Pages repository subpath. Pushing `main` runs the Pages workflow in `.github/workflows/deploy.yml`.
+`vite.config.js` uses relative asset URLs, so the build works at a custom domain or a GitHub Pages repository subpath. Pushing `master` runs the Pages workflow in `.github/workflows/deploy.yml`.
 
 ## Before a real launch
 
