@@ -24,7 +24,9 @@ export default function App() {
 
   const selectCar = (carId) => {
     setCategory(carId)
-    document.querySelector('#request')?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    document.querySelector('#request')?.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' })
+    window.requestAnimationFrame(() => document.querySelector('#category')?.focus({ preventScroll: true }))
   }
 
   return (

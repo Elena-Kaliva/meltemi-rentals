@@ -152,7 +152,7 @@ export function Booking({ t, cars, category, setCategory, language }) {
     <section className="scroll-mt-20 py-14 sm:py-20" id="request">
       <div className="page-wrap grid gap-8 rounded-[1.5rem] bg-aegean-dark p-6 text-white sm:p-10 lg:grid-cols-[.78fr_1.22fr] lg:gap-12">
         <div className="self-center">
-          <p className="eyebrow text-amber-200 before:bg-amber-300">{t.booking.eyebrow}</p><h2 className="mt-3 text-4xl font-black leading-[1.04] tracking-[-0.045em] sm:text-5xl">{t.booking.title}</h2><p className="mt-5 leading-7 text-blue-100">{t.booking.body}</p>
+          <p className="eyebrow text-amber-200 before:bg-amber-300">{t.booking.eyebrow}</p><h2 className="mt-3 text-4xl font-black leading-[1.04] tracking-[-0.045em] sm:text-5xl" id="booking-form-title">{t.booking.title}</h2><p className="mt-5 leading-7 text-blue-100">{t.booking.body}</p>
           <div className="mt-6 grid gap-2 text-sm text-blue-50">{t.booking.ticks.map((tick) => <span className="before:mr-2 before:font-black before:text-amber-300 before:content-['✓']" key={tick}>{tick}</span>)}</div>
         </div>
         <BookingForm category={category} setCategory={setCategory} cars={cars} t={t} language={language} />
