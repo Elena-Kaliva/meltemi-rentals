@@ -128,7 +128,7 @@ export default function TurnstileWidget({ error, language, onToken, resetRef, si
 
   return (
     <div className="sm:col-span-2" role="group" aria-describedby={`turnstile-status${error ? ' turnstile-field-error' : ''}`} aria-invalid={Boolean(error)}>
-      <div className="min-h-[65px] overflow-hidden rounded-xl border border-slate-200 bg-slate-50 p-2" ref={containerRef} />
+      <div ref={containerRef} />
       <div className="mt-2 flex min-h-6 items-start justify-between gap-3 text-xs">
         <p id="turnstile-status" className={phase === 'verified' ? 'text-emerald-700' : phase === 'error' || phase === 'config' ? 'text-amber-800' : 'text-slate-500'} aria-live="polite" tabIndex="-1">
           <span aria-hidden="true">{phase === 'verified' ? '✓ ' : ''}</span>{message}
