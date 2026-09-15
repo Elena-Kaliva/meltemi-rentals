@@ -1,0 +1,15 @@
+node_modules
+dist
+.DS_Store
+.env
+.env.local
+*.log
+
+# Original brief/source artwork retained locally; optimized assets live in src/assets.
+/Localle-Dokimastiko-Task.pdf
+/sunny_greek_island_harbour.png
+/white_SUV_car.png
+/white_compact_car.png
+/white_economy_rental.png
+/white_mini_rental_car.png
+/white_rental_car_driving_island_road.png
