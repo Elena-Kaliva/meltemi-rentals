@@ -17,12 +17,16 @@ function FieldError({ error, id }) {
 
 function openDatePicker(event) {
   if (typeof event.currentTarget.showPicker !== 'function') return
+  event.preventDefault()
   try {
     event.currentTarget.showPicker()
-    event.preventDefault()
   } catch {
     // Browsers without a programmatic picker keep their native date-input behavior.
   }
+}
+
+function preventDateSegmentSelection(event) {
+  if (typeof event.currentTarget.showPicker === 'function') event.preventDefault()
 }
 
 export default function BookingForm({ category, setCategory, cars, t, language }) {
@@ -173,12 +177,12 @@ export default function BookingForm({ category, setCategory, cars, t, language }
       </div>
       <div>
         <label className="field-label" htmlFor="pickup-date">{t.booking.labels.pickup}</label>
-        <input className={`${fieldClass('pickupDate')} cursor-pointer`} id="pickup-date" name="pickup_date" type="date" min={today} value={values.pickupDate} onClick={openDatePicker} onChange={handlePickup} aria-invalid={Boolean(errors.pickupDate)} aria-describedby={errors.pickupDate ? 'pickup-error' : undefined} required />
+        <input className={`${fieldClass('pickupDate')} cursor-pointer`} id="pickup-date" name="pickup_date" type="date" min={today} value={values.pickupDate} onPointerDown={openDatePicker} onClick={preventDateSegmentSelection} onChange={handlePickup} aria-invalid={Boolean(errors.pickupDate)} aria-describedby={errors.pickupDate ? 'pickup-error' : undefined} required />
         <FieldError id="pickup-error" error={errorText('pickupDate')} />
       </div>
       <div>
         <label className="field-label" htmlFor="return-date">{t.booking.labels.return}</label>
-        <input className={`${fieldClass('returnDate')} cursor-pointer`} id="return-date" name="return_date" type="date" min={returnMin} value={values.returnDate} onClick={openDatePicker} onChange={updateValue('returnDate')} aria-invalid={Boolean(errors.returnDate)} aria-describedby={errors.returnDate ? 'return-error' : undefined} required />
+        <input className={`${fieldClass('returnDate')} cursor-pointer`} id="return-date" name="return_date" type="date" min={returnMin} value={values.returnDate} onPointerDown={openDatePicker} onClick={preventDateSegmentSelection} onChange={updateValue('returnDate')} aria-invalid={Boolean(errors.returnDate)} aria-describedby={errors.returnDate ? 'return-error' : undefined} required />
         <FieldError id="return-error" error={errorText('returnDate')} />
       </div>
       <div className="sm:col-span-2">
