@@ -3,14 +3,18 @@ import heroLarge from '../assets/hero-1440.webp'
 import harbour from '../assets/kos-harbour.webp'
 import BookingForm from './BookingForm'
 
-export function Hero({ t }) {
+export function Hero({ t, language }) {
+  const titleLineClass = language === 'el' ? 'block lg:whitespace-nowrap' : 'block'
+
   return (
     <section className="py-8 sm:py-12" id="top">
       <div className="page-wrap grid items-center gap-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-12">
         <div className="py-2 lg:py-6">
           <p className="eyebrow">{t.hero.eyebrow}</p>
-          <h1 className="mt-4 max-w-3xl text-[clamp(2.75rem,9vw,4.75rem)] font-black leading-[.98] tracking-[-0.06em]">
-            {t.hero.title1}<br /><span className="text-aegean">{t.hero.title2}</span><br />{t.hero.title3}
+          <h1 className={`mt-4 max-w-3xl font-black leading-[.98] tracking-[-0.06em] ${language === 'el' ? 'text-[clamp(2.5rem,7.5vw,4rem)] lg:text-[3.35rem]' : 'text-[clamp(2.75rem,9vw,4.75rem)]'}`}>
+            <span className={titleLineClass}>{t.hero.title1}</span>
+            <span className={`${titleLineClass} text-aegean`}>{t.hero.title2}</span>
+            <span className={titleLineClass}>{t.hero.title3}</span>
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{t.hero.body}</p>
           <div className="mt-7 flex flex-col gap-3 min-[420px]:flex-row">

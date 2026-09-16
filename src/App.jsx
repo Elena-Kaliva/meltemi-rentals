@@ -33,7 +33,7 @@ export default function App() {
     <>
       <Header language={language} setLanguage={setLanguage} t={t} />
       <main>
-        <Hero t={t} /><ProofStrip t={t} /><Pricing t={t} /><Fleet t={t} cars={cars} onRequest={selectCar} /><Benefits t={t} />
+        <Hero t={t} language={language} /><ProofStrip t={t} /><Pricing t={t} /><Fleet t={t} cars={cars} onRequest={selectCar} /><Benefits t={t} />
         <Booking t={t} cars={cars} category={category} setCategory={setCategory} language={language} /><FAQ t={t} />
       </main>
       <footer className="border-t border-slate-200 bg-white py-9 pb-28 sm:pb-10">
