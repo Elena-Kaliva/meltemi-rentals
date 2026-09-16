@@ -15,6 +15,15 @@ function FieldError({ error, id }) {
   return <p className="mt-1.5 text-xs font-semibold text-red-700" id={id}><span aria-hidden="true">! </span>{error}</p>
 }
 
+function openDatePicker(event) {
+  if (typeof event.currentTarget.showPicker !== 'function') return
+  try {
+    event.currentTarget.showPicker()
+  } catch {
+    // Browsers without a programmatic picker keep their native date-input behavior.
+  }
+}
+
 export default function BookingForm({ category, setCategory, cars, t, language }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
@@ -163,12 +172,12 @@ export default function BookingForm({ category, setCategory, cars, t, language }
       </div>
       <div>
         <label className="field-label" htmlFor="pickup-date">{t.booking.labels.pickup}</label>
-        <input className={fieldClass('pickupDate')} id="pickup-date" name="pickup_date" type="date" min={today} value={values.pickupDate} onChange={handlePickup} aria-invalid={Boolean(errors.pickupDate)} aria-describedby={errors.pickupDate ? 'pickup-error' : undefined} required />
+        <input className={`${fieldClass('pickupDate')} cursor-pointer`} id="pickup-date" name="pickup_date" type="date" min={today} value={values.pickupDate} onClick={openDatePicker} onChange={handlePickup} aria-invalid={Boolean(errors.pickupDate)} aria-describedby={errors.pickupDate ? 'pickup-error' : undefined} required />
         <FieldError id="pickup-error" error={errorText('pickupDate')} />
       </div>
       <div>
         <label className="field-label" htmlFor="return-date">{t.booking.labels.return}</label>
-        <input className={fieldClass('returnDate')} id="return-date" name="return_date" type="date" min={returnMin} value={values.returnDate} onChange={updateValue('returnDate')} aria-invalid={Boolean(errors.returnDate)} aria-describedby={errors.returnDate ? 'return-error' : undefined} required />
+        <input className={`${fieldClass('returnDate')} cursor-pointer`} id="return-date" name="return_date" type="date" min={returnMin} value={values.returnDate} onClick={openDatePicker} onChange={updateValue('returnDate')} aria-invalid={Boolean(errors.returnDate)} aria-describedby={errors.returnDate ? 'return-error' : undefined} required />
         <FieldError id="return-error" error={errorText('returnDate')} />
       </div>
       <div className="sm:col-span-2">
