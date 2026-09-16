@@ -148,7 +148,7 @@ export default function BookingForm({ category, setCategory, cars, t, language }
     setStatusCode('')
   }
 
-  const fieldClass = (field) => `mt-2 min-h-12 w-full rounded-xl border bg-white px-3.5 text-base text-ink outline-none transition focus:border-aegean focus:ring-4 focus:ring-aegean/10 ${errors[field] ? 'border-red-500' : 'border-slate-300'}`
+  const fieldClass = (field) => `mt-2 min-h-12 w-full min-w-0 max-w-full rounded-xl border bg-white px-3.5 text-base text-ink outline-none transition focus:border-aegean focus:ring-4 focus:ring-aegean/10 ${errors[field] ? 'border-red-500' : 'border-slate-300'}`
   const errorText = (field) => errors[field] ? t.booking.errors[errors[field]] : ''
 
   if (status === 'success') {
@@ -175,12 +175,12 @@ export default function BookingForm({ category, setCategory, cars, t, language }
         <input className={fieldClass('email')} id="email" name="email" type="email" inputMode="email" autoComplete="email" placeholder={t.booking.placeholders.email} value={values.email} onChange={updateValue('email')} aria-invalid={Boolean(errors.email)} aria-describedby={errors.email ? 'email-error' : undefined} required />
         <FieldError id="email-error" error={errorText('email')} />
       </div>
-      <div>
+      <div className="min-w-0">
         <label className="field-label" htmlFor="pickup-date">{t.booking.labels.pickup}</label>
         <input className={`${fieldClass('pickupDate')} cursor-pointer`} id="pickup-date" name="pickup_date" type="date" min={today} value={values.pickupDate} onPointerDown={openDatePicker} onClick={preventDateSegmentSelection} onChange={handlePickup} aria-invalid={Boolean(errors.pickupDate)} aria-describedby={errors.pickupDate ? 'pickup-error' : undefined} required />
         <FieldError id="pickup-error" error={errorText('pickupDate')} />
       </div>
-      <div>
+      <div className="min-w-0">
         <label className="field-label" htmlFor="return-date">{t.booking.labels.return}</label>
         <input className={`${fieldClass('returnDate')} cursor-pointer`} id="return-date" name="return_date" type="date" min={returnMin} value={values.returnDate} onPointerDown={openDatePicker} onClick={preventDateSegmentSelection} onChange={updateValue('returnDate')} aria-invalid={Boolean(errors.returnDate)} aria-describedby={errors.returnDate ? 'return-error' : undefined} required />
         <FieldError id="return-error" error={errorText('returnDate')} />
