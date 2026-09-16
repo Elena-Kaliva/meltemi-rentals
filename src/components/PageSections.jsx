@@ -166,7 +166,7 @@ export function FAQ({ t }) {
     <section className="section-pad scroll-mt-24 pt-0" id="faq">
       <div className="page-wrap">
         <div className="section-heading"><div><p className="eyebrow">{t.faq.eyebrow}</p><h2>{t.faq.title}</h2></div></div>
-        <div className="grid gap-3 md:grid-cols-2">
+        <div className="grid items-start gap-3 md:grid-cols-2">
           {t.faq.items.map(([question, answer]) => <details className="group rounded-2xl border border-slate-200 bg-white p-5" key={question}><summary className="cursor-pointer list-none pr-8 font-bold marker:hidden">{question}<span className="float-right text-aegean transition group-open:rotate-45" aria-hidden="true">+</span></summary><p className="mt-3 text-sm leading-6 text-slate-600">{answer}</p></details>)}
         </div>
       </div>
