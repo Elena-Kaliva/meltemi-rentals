@@ -164,7 +164,7 @@ export default function BookingForm({ category, setCategory, cars, t, language }
   }
 
   return (
-    <form className="relative grid gap-4 rounded-2xl bg-white p-5 text-ink shadow-sm sm:grid-cols-2 sm:p-6" onSubmit={handleSubmit} noValidate aria-labelledby="booking-form-title" aria-busy={status === 'submitting'} action={endpoint} method="POST">
+    <form className="relative grid w-full min-w-0 grid-cols-1 gap-4 rounded-2xl bg-white p-5 text-ink shadow-sm sm:grid-cols-2 sm:p-6" onSubmit={handleSubmit} noValidate aria-labelledby="booking-form-title" aria-busy={status === 'submitting'} action={endpoint} method="POST">
       <div>
         <label className="field-label" htmlFor="full-name">{t.booking.labels.name}</label>
         <input className={fieldClass('name')} id="full-name" name="name" type="text" autoComplete="name" placeholder={t.booking.placeholders.name} value={values.name} onChange={updateValue('name')} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? 'name-error' : undefined} required />
