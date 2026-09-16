@@ -19,6 +19,7 @@ function openDatePicker(event) {
   if (typeof event.currentTarget.showPicker !== 'function') return
   try {
     event.currentTarget.showPicker()
+    event.preventDefault()
   } catch {
     // Browsers without a programmatic picker keep their native date-input behavior.
   }
