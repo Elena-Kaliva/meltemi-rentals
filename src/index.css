@@ -10,6 +10,13 @@
   }
   button, a, input, select, summary { @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-aegean/25; }
   button:disabled { @apply cursor-wait opacity-70; }
+  input[type="date"]::-webkit-datetime-edit-day-field:focus,
+  input[type="date"]::-webkit-datetime-edit-month-field:focus,
+  input[type="date"]::-webkit-datetime-edit-year-field:focus {
+    background-color: transparent;
+    color: inherit;
+    outline: none;
+  }
 }
 
 @layer components {
