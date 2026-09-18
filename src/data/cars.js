@@ -1,7 +1,7 @@
-import mini from '../assets/mini.webp'
-import economy from '../assets/economy.webp'
-import compact from '../assets/compact.webp'
-import suv from '../assets/suv.webp'
+import mini from '../assets/mini-cutout.webp'
+import economy from '../assets/economy-cutout.webp'
+import compact from '../assets/compact-cutout.webp'
+import suv from '../assets/suv-cutout.webp'
 
 export const cars = [
   { id: 'mini', name: 'Mini', example: 'Fiat 500', price: 35, image: mini, seats: 4, bags: 1, transmission: 'manual' },

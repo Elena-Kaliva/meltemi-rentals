@@ -1,99 +1,162 @@
-import heroSmall from '../assets/hero-840.webp'
-import heroLarge from '../assets/hero-1440.webp'
-import harbour from '../assets/kos-harbour.webp'
+import { useEffect, useRef, useState } from 'react'
+import heroSmall from '../assets/hero-wow-840.webp'
+import heroLarge from '../assets/hero-wow-1440.webp'
+import { localIsoDate, nextDay } from '../lib/bookingForm'
 import BookingForm from './BookingForm'
+import DateInput from './DateInput'
 
-export function Hero({ t, language }) {
-  const titleLineClass = language === 'el' ? 'block lg:whitespace-nowrap' : 'block'
+function SectionMarker({ number, label, inverse = false, centered = false }) {
+  return (
+    <div className={`flex items-center gap-3 text-[10px] font-extrabold uppercase tracking-[.12em] ${centered ? 'justify-center' : ''} ${inverse ? 'text-white/65' : 'text-stone-500'}`}>
+      <span className={`grid h-7 min-w-7 place-items-center rounded-full border px-2 tabular-nums ${inverse ? 'border-white/20 bg-white/[.06] text-white' : 'border-aegean/15 bg-aegean/[.06] text-aegean'}`}>{number}</span>
+      <span className={`h-px w-6 shrink-0 sm:w-10 ${inverse ? 'bg-white/25' : 'bg-stone-300'}`} aria-hidden="true" />
+      <span>{label}</span>
+    </div>
+  )
+}
+
+export function Hero({ t, cars, selection, onSelectionChange, onCheckAvailability }) {
+  const today = localIsoDate()
+  const returnMin = selection.pickupDate ? nextDay(selection.pickupDate) : today
+
+  const submitAvailability = (event) => {
+    event.preventDefault()
+    onCheckAvailability()
+  }
 
   return (
-    <section className="py-8 sm:py-12" id="top">
-      <div className="page-wrap grid items-center gap-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-12">
-        <div className="py-2 lg:py-6">
-          <p className="eyebrow">{t.hero.eyebrow}</p>
-          <h1 className={`mt-4 max-w-3xl font-black leading-[.98] tracking-[-0.06em] ${language === 'el' ? 'text-[clamp(2.5rem,7.5vw,4rem)] md:text-[3.35rem] lg:text-[3.1rem]' : 'text-[clamp(2.75rem,9vw,4.75rem)]'}`}>
-            <span className={titleLineClass}>{t.hero.title1}</span>
-            <span className={`${titleLineClass} text-aegean`}>{t.hero.title2}</span>
-            <span className={titleLineClass}>{t.hero.title3}</span>
-          </h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-slate-600 sm:text-lg sm:leading-8">{t.hero.body}</p>
-          <div className="mt-7 flex flex-col gap-3 min-[420px]:flex-row">
-            <a className="button-primary flex-1 min-[420px]:flex-none" href="#request">{t.nav.cta}<span aria-hidden="true">→</span></a>
-            <a className="button-secondary flex-1 min-[420px]:flex-none" href="#included">{t.hero.secondary}</a>
-          </div>
-          <div className="mt-5 flex flex-wrap gap-x-4 gap-y-2 text-xs font-semibold text-slate-500">
-            {t.hero.checks.map((check) => <span className="before:mr-1.5 before:font-black before:text-aegean before:content-['✓']" key={check}>{check}</span>)}
-          </div>
-        </div>
-        <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem] bg-slate-200 shadow-soft sm:aspect-[5/4] lg:aspect-auto lg:h-[600px] lg:rounded-[1.875rem]">
-          <picture className="block h-full w-full">
+    <section className="pb-44 sm:pb-36 lg:pb-24" id="top">
+      <div className="w-full">
+        <div className="relative min-h-[43rem] overflow-visible bg-stone-700 shadow-[0_28px_80px_rgba(23,24,23,.16)]">
+          <picture className="absolute inset-0 overflow-hidden">
             <source media="(max-width: 840px)" srcSet={heroSmall} />
-            <img className="h-full w-full object-cover" src={heroLarge} alt={t.hero.alt} width="1440" height="810" fetchPriority="high" decoding="async" />
+            <img className="hero-image h-full w-full scale-[1.01] object-cover object-[60%_center] sm:object-center" src={heroLarge} alt={t.hero.alt} width="1440" height="810" fetchPriority="high" decoding="async" />
           </picture>
-          <div className="absolute inset-x-3 bottom-3 flex items-end justify-between gap-3 rounded-2xl border border-white/70 bg-white/95 p-4 sm:inset-x-5 sm:bottom-5 sm:p-5">
-            <div><span className="block text-[11px] text-slate-500">{t.hero.priceLabel}</span><strong className="mt-1 block text-sm sm:text-lg">{t.hero.priceText}</strong></div>
-            <div className="shrink-0 text-right"><strong className="text-3xl font-black tracking-tight text-aegean">€35</strong><span className="block text-[10px] text-slate-500">{t.hero.from}</span></div>
+          <div className="absolute inset-0 bg-gradient-to-b from-black/5 via-black/10 to-black/55" aria-hidden="true" />
+          <div className="absolute inset-0 bg-gradient-to-r from-black/50 via-black/20 to-transparent sm:from-black/35 sm:via-black/10" aria-hidden="true" />
+
+          <div className="hero-eyebrow-row absolute left-1/2 top-6 z-10 flex w-[calc(100%-3rem)] max-w-[73.75rem] -translate-x-1/2 items-start justify-between gap-4 sm:top-12 sm:w-[calc(100%-5rem)]">
+            <p className="text-[11px] font-extrabold uppercase tracking-[.07em] text-white sm:text-xs">{t.hero.eyebrow}</p>
+            <div className="shrink-0 rounded-full border border-white/60 bg-white/90 px-4 py-2.5 text-right text-ink shadow-[0_12px_32px_rgba(0,0,0,.12)] backdrop-blur-xl">
+              <small className="block text-[9px] font-extrabold uppercase tracking-[.06em] text-stone-500">{t.sticky.label}</small>
+              <strong className="text-lg font-black tracking-[-.04em] sm:text-[1.35rem]">€35/day</strong>
+            </div>
           </div>
+
+          <div className="hero-copy absolute left-1/2 top-28 z-10 w-[calc(100%-3rem)] max-w-[73.75rem] -translate-x-1/2 text-white sm:bottom-36 sm:top-auto sm:w-[calc(100%-5rem)]">
+            <h1 className="text-[clamp(2.35rem,7vw,5.75rem)] font-black leading-[.93] tracking-[-.067em] [text-wrap:balance] sm:text-[clamp(2.75rem,7vw,5.75rem)]">
+              <span className="block">{t.hero.title1}</span>
+              <span className="block font-medium">{t.hero.title2}</span>
+              <span className="block font-medium">{t.hero.title3}</span>
+            </h1>
+            <p className="mt-5 max-w-xl text-sm leading-6 text-white/90 sm:mt-6 sm:text-lg sm:leading-8">{t.hero.body}</p>
+            <div className="mt-6 flex flex-col gap-2 min-[420px]:flex-row sm:mt-7">
+              <a className="button-primary flex-1 min-[420px]:flex-none" href="#request">{t.nav.cta}<span aria-hidden="true">→</span></a>
+              <a className="button-secondary flex-1 border-transparent bg-white/95 min-[420px]:flex-none" href="#included">{t.hero.secondary}</a>
+            </div>
+          </div>
+
+          <form className="hero-availability absolute -bottom-[9.5rem] left-1/2 z-20 grid w-[calc(100%-1.5rem)] max-w-[73.75rem] -translate-x-1/2 grid-cols-2 overflow-hidden rounded-2xl border border-white/70 bg-white/95 text-ink shadow-[0_24px_70px_rgba(23,24,23,.2)] backdrop-blur-xl sm:-bottom-[5.5rem] sm:w-[calc(100%-2.5rem)] lg:-bottom-9 lg:grid-cols-[1.15fr_1fr_1fr_1fr_auto]" id="hero-availability" onSubmit={submitAvailability} aria-label={t.hero.availability.label}>
+            <div className="col-span-2 border-b border-stone-200 px-4 py-3 transition-colors hover:bg-stone-50 sm:col-span-1 sm:border-r lg:border-b-0 lg:px-5 lg:py-4">
+              <span className="hero-search-label">{t.hero.availability.location}</span>
+              <strong className="block text-sm">{t.hero.availability.locationValue}</strong>
+            </div>
+            <label className="min-w-0 border-b border-r border-stone-200 px-4 py-3 transition-colors hover:bg-stone-50 focus-within:bg-stone-50 lg:border-b-0 lg:px-5 lg:py-4" htmlFor="hero-pickup-date">
+              <span className="hero-search-label">{t.hero.availability.pickup}</span>
+              <DateInput className="hero-search-input" id="hero-pickup-date" min={today} value={selection.pickupDate} onChange={(event) => onSelectionChange('pickupDate', event.target.value)} />
+            </label>
+            <label className="min-w-0 border-b border-stone-200 px-4 py-3 transition-colors hover:bg-stone-50 focus-within:bg-stone-50 sm:border-r lg:border-b-0 lg:px-5 lg:py-4" htmlFor="hero-return-date">
+              <span className="hero-search-label">{t.hero.availability.return}</span>
+              <DateInput className="hero-search-input" id="hero-return-date" min={returnMin} value={selection.returnDate} onChange={(event) => onSelectionChange('returnDate', event.target.value)} />
+            </label>
+            <label className="col-span-2 min-w-0 border-b border-stone-200 px-4 py-3 transition-colors hover:bg-stone-50 focus-within:bg-stone-50 sm:col-span-1 sm:border-r lg:border-b-0 lg:px-5 lg:py-4" htmlFor="hero-category">
+              <span className="hero-search-label">{t.hero.availability.car}</span>
+              <select className="hero-search-input cursor-pointer" id="hero-category" value={selection.category} onChange={(event) => onSelectionChange('category', event.target.value)}>
+                <option value="">{t.hero.availability.anyCategory}</option>
+                {cars.map((car) => <option value={car.id} key={car.id}>{car.name}</option>)}
+              </select>
+            </label>
+            <button className="group col-span-2 min-h-14 bg-ink px-6 text-sm font-extrabold text-white transition-colors hover:bg-black lg:col-span-1 lg:min-h-full" type="submit">{t.hero.availability.submit}<span className="ml-2 inline-block transition-transform group-hover:translate-x-1" aria-hidden="true">→</span></button>
+          </form>
         </div>
       </div>
     </section>
   )
 }
 
-export function ProofStrip({ t }) {
+function CostRow({ children, included = false, total = false }) {
   return (
-    <section className="pb-2" aria-label={t.nav.included}>
-      <div className="page-wrap grid grid-cols-2 overflow-hidden rounded-2xl border border-slate-200 bg-white lg:grid-cols-4">
-        {t.proof.map(([label, value], index) => (
-          <div className={`p-4 sm:p-5 ${index % 2 === 0 ? 'border-r' : ''} ${index < 2 ? 'border-b lg:border-b-0' : ''} border-slate-200 lg:border-r lg:last:border-r-0`} key={label}>
-            <span className="text-[10px] font-extrabold uppercase tracking-[.08em] text-slate-500">{label}</span>
-            <strong className="mt-1.5 block text-sm sm:text-base">{value}</strong>
-          </div>
-        ))}
+    <div className={`flex min-h-12 items-center justify-between gap-4 text-sm ${total ? 'mt-2 rounded-xl bg-white/[.12] px-3.5 py-2.5' : included ? 'border-t border-stone-200 py-3' : 'border-t border-white/10 py-3'}`}>
+      <div className="flex min-w-0 items-center gap-2.5">
+        <span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-[11px] font-black ${included ? 'bg-aegean text-white' : total ? 'bg-white text-ink' : 'bg-white/10 text-stone-300'}`} aria-hidden="true">
+          {included ? '✓' : total ? '=' : '+'}
+        </span>
+        {children[0]}
       </div>
-    </section>
+      {children[1]}
+    </div>
   )
-}
-
-function CostRow({ children, dark = false }) {
-  return <div className={`flex justify-between gap-5 border-b py-3 text-sm last:border-0 ${dark ? 'border-white/15' : 'border-slate-200'}`}>{children}</div>
 }
 
 export function Pricing({ t }) {
   const p = t.pricing
   return (
-    <section className="section-pad scroll-mt-24" id="included">
-      <div className="page-wrap">
-        <div className="section-heading">
-          <div><p className="eyebrow">{p.eyebrow}</p><h2>{p.title}</h2></div>
-          <p>{p.intro}</p>
+    <section className="scroll-mt-24" id="included">
+      <div className="page-wrap mb-9 sm:mb-12">
+        <SectionMarker number="01" label={p.eyebrow} />
+        <div className="mt-6 max-w-5xl">
+          <h2 className="text-[clamp(2.75rem,5.4vw,4.75rem)] font-black leading-[.93] tracking-[-.067em] text-ink [text-wrap:balance]">{p.title}</h2>
+          <p className="mt-6 max-w-2xl text-base leading-7 text-stone-600 lg:text-lg lg:leading-8">{p.intro}</p>
         </div>
-        <div className="rounded-[1.5rem] border border-[#ebe3d6] bg-sand p-4 sm:p-8">
-          <div className="mb-6 grid gap-2 lg:grid-cols-[1fr_1.1fr] lg:items-center lg:gap-10">
-            <h3 className="text-2xl font-extrabold tracking-tight">{p.compareTitle}</h3><p className="text-sm leading-6 text-slate-600">{p.compareBody}</p>
+      </div>
+
+      <div className="relative overflow-hidden bg-[#101827] py-6 text-white shadow-[0_32px_90px_rgba(20,31,49,.16)] sm:py-12">
+        <span className="pointer-events-none absolute -right-32 -top-44 h-[32rem] w-[32rem] rounded-full bg-aegean/25 blur-[110px]" aria-hidden="true" />
+        <span className="pointer-events-none absolute -bottom-52 -left-40 h-[30rem] w-[30rem] rounded-full bg-slate-400/10 blur-[100px]" aria-hidden="true" />
+
+        <div className="page-wrap relative grid gap-4 lg:grid-cols-2 lg:items-stretch lg:gap-5">
+          <article className="group flex min-h-[25rem] flex-col rounded-[1.65rem] border border-white/10 bg-white/[.055] p-4 backdrop-blur-md transition-[border-color,transform] duration-300 hover:border-white/20 sm:p-6 lg:pr-9">
+            <div className="flex items-center justify-between gap-4">
+              <span className="rounded-full bg-white/[.07] px-3 py-2 text-[10px] font-extrabold uppercase tracking-[.07em] text-slate-300">{p.example}</span>
+              <span className="text-[10px] font-extrabold uppercase tracking-[.07em] text-slate-400">{p.starts}</span>
+            </div>
+            <div className="my-6 flex items-end gap-2 border-b border-white/10 pb-6">
+              <p className="text-6xl font-black leading-none tracking-[-.075em] text-white/85 sm:text-7xl">€8</p>
+              <span className="mb-1.5 text-sm font-bold text-slate-400">/day</span>
+            </div>
+            <div className="mt-auto">
+              <CostRow><span>{p.insurance}</span><strong className="shrink-0 text-rose-200">+ €15/day</strong></CostRow>
+              <CostRow><span>{p.airport}</span><strong className="shrink-0 text-rose-200">+ €25</strong></CostRow>
+              <CostRow><span>{p.held}</span><strong className="shrink-0 text-rose-200">€1,200</strong></CostRow>
+              <CostRow><span>{p.fuel}</span><strong className="shrink-0 text-rose-200">+</strong></CostRow>
+              <CostRow total><strong>{p.approximate}</strong><strong className="shrink-0 text-base">≈ €48/day</strong></CostRow>
+            </div>
+            <p className="mt-4 text-[11px] leading-5 text-slate-400">{p.exampleNote}</p>
+          </article>
+
+          <div className="relative z-20 -my-1 flex items-center justify-center lg:absolute lg:inset-y-0 lg:left-1/2 lg:-translate-x-1/2">
+            <span className="grid h-12 w-12 place-items-center rounded-full border-4 border-[#101827] bg-white text-[10px] font-black tracking-[.08em] text-ink shadow-[0_10px_30px_rgba(0,0,0,.25)]">VS</span>
           </div>
-          <div className="grid gap-4 lg:grid-cols-[1fr_1.08fr]">
-            <article className="rounded-2xl border border-slate-200 bg-white p-5 sm:p-7">
-              <div className="flex justify-between gap-4 text-[11px] font-extrabold uppercase tracking-wide"><span>{p.example}</span><span>{p.starts}</span></div>
-              <p className="my-4 text-4xl font-black tracking-tight">€8<span className="text-base">/day</span></p>
-              <CostRow><span>{p.insurance}</span><strong>+ €15/day</strong></CostRow>
-              <CostRow><span>{p.airport}</span><strong>+ €25</strong></CostRow>
-              <CostRow><span>{p.held}</span><strong>€1,200</strong></CostRow>
-              <CostRow><span>{p.fuel}</span><strong>+</strong></CostRow>
-              <CostRow><strong>{p.approximate}</strong><strong>≈ €48/day</strong></CostRow>
-              <p className="mt-4 text-[11px] leading-4 text-slate-500">{p.exampleNote}</p>
-            </article>
-            <article className="rounded-2xl bg-aegean-dark p-5 text-white sm:p-7">
-              <div className="flex justify-between gap-4 text-[11px] font-extrabold uppercase tracking-wide"><span>Meltemi Rentals</span><span>{p.clear}</span></div>
-              <p className="my-4 text-4xl font-black tracking-tight">€35<span className="text-base">/day</span></p>
-              <CostRow dark><span>{p.zeroInsurance}</span><strong>{p.included}</strong></CostRow>
-              <CostRow dark><span>{p.airportIncluded}</span><strong>{p.included}</strong></CostRow>
-              <CostRow dark><span>{p.secondDriver}</span><strong>{p.included}</strong></CostRow>
-              <CostRow dark><span>{p.fullFuel}</span><strong>{p.included}</strong></CostRow>
-              <CostRow dark><span>{p.held}</span><strong>€0</strong></CostRow>
-              <p className="mt-4 text-[11px] leading-4 text-blue-100">{p.meltemiNote}</p>
-            </article>
-          </div>
+
+          <article className="comparison-featured relative flex min-h-[25rem] flex-col overflow-hidden rounded-[1.65rem] bg-[#f7f7f4] p-4 text-ink shadow-[0_26px_65px_rgba(0,0,0,.28)] sm:p-6 lg:pl-9">
+            <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-300 via-aegean to-blue-300" aria-hidden="true" />
+            <div className="flex items-center justify-between gap-4">
+              <span className="rounded-full bg-aegean px-3 py-2 text-[10px] font-extrabold uppercase tracking-[.07em] text-white">Meltemi Rentals</span>
+              <span className="text-right text-[10px] font-extrabold uppercase tracking-[.07em] text-aegean">{p.clear}</span>
+            </div>
+            <div className="my-6 flex items-end gap-2 border-b border-stone-200 pb-6">
+              <p className="text-6xl font-black leading-none tracking-[-.075em] text-aegean sm:text-7xl">€35</p>
+              <span className="mb-1.5 text-sm font-bold text-stone-500">/day</span>
+            </div>
+            <div className="mt-auto">
+              <CostRow included><span>{p.zeroInsurance}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
+              <CostRow included><span>{p.airportIncluded}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
+              <CostRow included><span>{p.secondDriver}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
+              <CostRow included><span>{p.fullFuel}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
+              <CostRow included><span>{p.held}</span><strong className="shrink-0 text-aegean">€0</strong></CostRow>
+            </div>
+            <p className="mt-4 text-[11px] leading-5 text-stone-600">{p.meltemiNote}</p>
+          </article>
         </div>
       </div>
     </section>
@@ -102,24 +165,29 @@ export function Pricing({ t }) {
 
 export function Fleet({ t, cars, onRequest }) {
   return (
-    <section className="section-pad scroll-mt-24 pt-4 sm:pt-8" id="fleet">
+    <section className="section-pad scroll-mt-24 border-y border-stone-300/50 bg-white/30" id="fleet">
       <div className="page-wrap">
-        <div className="section-heading">
-          <div><p className="eyebrow">{t.fleet.eyebrow}</p><h2>{t.fleet.title}</h2></div><p>{t.fleet.intro}</p>
+        <SectionMarker number="02" label={t.fleet.eyebrow} />
+        <div className="mt-6 max-w-4xl">
+          <h2 className="text-[clamp(2.65rem,5vw,4.35rem)] font-black leading-[.94] tracking-[-.063em] [text-wrap:balance]">{t.fleet.title}</h2>
+          <p className="mt-5 max-w-2xl text-base leading-7 text-stone-600 lg:text-lg lg:leading-8">{t.fleet.intro}</p>
         </div>
-        <div className="fleet-scroll">
+        <div className="fleet-scroll mt-10">
           {cars.map((car) => (
-            <article className="group min-w-[84%] snap-start overflow-hidden rounded-2xl border border-slate-200 bg-white sm:min-w-0" key={car.id}>
-              <div className="aspect-[4/3] overflow-hidden bg-slate-100"><img className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.025]" src={car.image} alt={t.fleet.alt(car.name)} width="720" height="540" loading="lazy" decoding="async" /></div>
-              <div className="p-4">
+            <article className="fleet-card group relative flex min-w-[84%] snap-start flex-col overflow-hidden rounded-[1.5rem] border border-stone-200/90 bg-white shadow-[0_8px_28px_rgba(23,24,23,.05)] transition-[box-shadow,border-color] duration-500 hover:border-transparent hover:shadow-[0_16px_42px_rgba(23,24,23,.09)] sm:min-w-0" key={car.id}>
+              <div className="relative aspect-[4/3] overflow-hidden bg-[#e7eaec]">
+                <span className="absolute inset-x-[18%] bottom-[12%] h-[10%] rounded-full bg-slate-900/10 blur-xl" aria-hidden="true" />
+                <img className="fleet-car-image relative h-full w-full object-contain p-2 sm:p-3" src={car.image} alt={t.fleet.alt(car.name)} width="720" height="480" loading="lazy" decoding="async" />
+              </div>
+              <div className="flex flex-1 flex-col p-5">
                 <div className="flex items-start justify-between gap-3">
-                  <div><h3 className="text-lg font-extrabold">{car.name}</h3><p className="mt-0.5 text-[11px] text-slate-500">{car.example} {t.fleet.similar}</p></div>
-                  <p className="text-right text-xl font-black text-aegean">€{car.price}<span className="block text-[10px] font-medium text-slate-500">{t.fleet.day}</span></p>
+                  <div><h3 className="text-xl font-black tracking-tight">{car.name}</h3><p className="mt-1 text-xs text-stone-500">{car.example} {t.fleet.similar}</p></div>
+                  <p className="shrink-0 text-right text-xl font-black text-aegean">€{car.price}<span className="block text-[10px] font-medium text-stone-500">{t.fleet.day}</span></p>
                 </div>
-                <div className="my-4 flex flex-wrap gap-2 text-[11px] text-slate-600">
+                <div className="my-5 flex flex-wrap gap-2 text-[11px] text-stone-600">
                   <span className="car-meta">{car.seats} {t.fleet.seats}</span><span className="car-meta">{car.bags} {car.bags === 1 ? t.fleet.bag : t.fleet.bags}</span><span className="car-meta">{t.fleet[car.transmission]}</span>
                 </div>
-                <button className="button-secondary w-full" type="button" onClick={() => onRequest(car.id)}>{t.fleet.request} {car.name}</button>
+                <button className="mt-auto flex w-full items-center justify-between border-t border-stone-200 pt-4 text-left text-sm font-extrabold transition-colors hover:text-aegean" type="button" onClick={() => onRequest(car.id)}><span>{t.fleet.request} {car.name}</span><span className="grid h-8 w-8 place-items-center rounded-full bg-stone-100 text-lg transition-[transform,background-color] group-hover:translate-x-1 group-hover:bg-aegean group-hover:text-white" aria-hidden="true">→</span></button>
               </div>
             </article>
           ))}
@@ -129,37 +197,141 @@ export function Fleet({ t, cars, onRequest }) {
   )
 }
 
-export function Benefits({ t }) {
+function MobileFactIcon({ index }) {
+  const iconClass = 'h-5 w-5 sm:h-6 sm:w-6'
+  const commonProps = { className: iconClass, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.8', strokeLinecap: 'round', strokeLinejoin: 'round' }
+
+  if (index === 0) {
+    return <svg {...commonProps} aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M15.5 8.4a4.5 4.5 0 1 0 0 7.2M7.5 10.5h6M7.5 13.5h5.4" /></svg>
+  }
+  if (index === 1) {
+    return <svg {...commonProps} aria-hidden="true"><path d="M12 3 5.5 5.7v5.5c0 4.2 2.7 7.8 6.5 9.3 3.8-1.5 6.5-5.1 6.5-9.3V5.7L12 3Z" /><path d="m8.7 11.8 2.1 2.1 4.6-4.8" /></svg>
+  }
+  if (index === 2) {
+    return <svg {...commonProps} aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="M3 9h18M7 15h3M15.2 14.8l1.4 1.4 2.7-3" /></svg>
+  }
+  return <svg {...commonProps} aria-hidden="true"><path d="M4.5 13v-1a7.5 7.5 0 0 1 15 0v1" /><path d="M4.5 12.5h1.2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H5a1.5 1.5 0 0 1-1.5-1.5v-3.5A1 1 0 0 1 4.5 12.5ZM19.5 12.5h-1.2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h.7a1.5 1.5 0 0 0 1.5-1.5v-3.5a1 1 0 0 0-1-1Z" /><path d="M16.3 18.5c-.7 1.3-2.1 2-4.3 2" /></svg>
+}
+
+export function MobileShowcase({ t }) {
+  const factPositions = ['lg:left-[2%] lg:top-[17%]', 'lg:right-[2%] lg:top-[28%]', 'lg:left-[7%] lg:bottom-[14%]', 'lg:right-[6%] lg:bottom-[8%]']
+  const sectionRef = useRef(null)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    if (!sectionRef.current || !('IntersectionObserver' in window)) {
+      setIsVisible(true)
+      return undefined
+    }
+
+    const observer = new window.IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return
+      setIsVisible(true)
+      observer.disconnect()
+    }, { threshold: 0.2 })
+
+    observer.observe(sectionRef.current)
+    return () => observer.disconnect()
+  }, [])
+
   return (
-    <section className="section-pad">
-      <div className="page-wrap grid gap-6 lg:grid-cols-[.94fr_1.06fr]">
-        <div className="min-h-[390px] overflow-hidden rounded-[1.5rem] bg-slate-200 lg:min-h-[560px]"><img className="h-full w-full object-cover" src={harbour} alt={t.benefits.alt} width="840" height="1050" loading="lazy" decoding="async" /></div>
-        <div className="flex flex-col justify-center rounded-[1.5rem] border border-slate-200 bg-white p-6 sm:p-10">
-          <p className="eyebrow">{t.benefits.eyebrow}</p><h2 className="mt-3 text-4xl font-black leading-[1.05] tracking-[-0.045em] sm:text-5xl">{t.benefits.title}</h2><p className="mt-5 leading-7 text-slate-600">{t.benefits.body}</p>
-          <div className="mt-6">
-            {t.benefits.items.map(([icon, title, body]) => (
-              <div className="grid grid-cols-[42px_1fr] gap-3 border-t border-slate-200 py-4" key={title}>
-                <span className="grid h-10 w-10 place-items-center rounded-xl bg-aegean-soft font-black text-aegean" aria-hidden="true">{icon}</span>
-                <div><h3 className="font-bold">{title}</h3><p className="mt-1 text-sm leading-6 text-slate-600">{body}</p></div>
+    <section className="scroll-mt-24" id="mobile-experience" ref={sectionRef}>
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#2f69b9] via-aegean to-[#204a84] py-12 text-white sm:py-16">
+        <span className="pointer-events-none absolute -left-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-white/[.06] blur-[100px]" aria-hidden="true" />
+        <span className="pointer-events-none absolute -right-44 -top-48 h-[32rem] w-[32rem] rounded-full bg-blue-300/15 blur-[110px]" aria-hidden="true" />
+        <div className="page-wrap relative">
+          <div className="mx-auto max-w-4xl text-center">
+          <SectionMarker number="03" label={t.mobile.factsLabel} inverse centered />
+          <h2 className="mt-6 text-[clamp(2.5rem,5vw,4.25rem)] font-black leading-[.94] tracking-[-.064em]">{t.mobile.title}</h2>
+          <p className="mx-auto mt-5 max-w-2xl leading-7 text-white/80">{t.mobile.body}</p>
+          </div>
+          <div className="relative mx-auto mt-8 max-w-6xl lg:min-h-[44rem]">
+          <span className="pointer-events-none absolute left-1/2 top-[48%] hidden text-[11rem] font-black leading-none tracking-[-.09em] text-white/[.045] lg:block lg:-translate-x-1/2 lg:-translate-y-1/2" aria-hidden="true">KOS</span>
+          <span className="pointer-events-none absolute left-1/2 top-[48%] hidden h-[39rem] w-[39rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 lg:block" aria-hidden="true" />
+          <span className="pointer-events-none absolute left-1/2 top-[48%] hidden h-[29rem] w-[29rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[.07] lg:block" aria-hidden="true" />
+          <div className="relative z-10 mx-auto h-[36rem] w-[18rem] rounded-[2.5rem] bg-[#101110] p-2.5 shadow-[0_34px_80px_rgba(0,0,0,.3)] sm:h-[40.5rem] sm:w-[20.625rem] sm:rounded-[2.875rem]">
+            <span className="absolute left-1/2 top-3.5 z-20 h-6 w-28 -translate-x-1/2 rounded-full bg-[#101110]" aria-hidden="true" />
+            <div className="h-full overflow-hidden rounded-[2rem] bg-paper text-ink sm:rounded-[2.375rem]">
+              <div className="flex h-14 items-center justify-between px-4 text-xs font-extrabold"><span><b>meltemi</b> rentals</span><span className="grid h-7 w-7 place-items-center rounded-full bg-ink text-white" aria-hidden="true">≡</span></div>
+              <div className="relative h-[15.5rem] overflow-hidden sm:h-[17.75rem]">
+                <img className="h-full w-full object-cover object-[60%_center]" src={heroSmall} alt="" width="840" height="473" loading="lazy" decoding="async" />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
+                <div className="absolute inset-x-4 bottom-4 z-10 text-white"><small className="text-[9px] font-bold uppercase tracking-wide">{t.mobile.previewContext}</small><strong className="mt-1 block text-2xl font-black leading-[.96] tracking-[-.055em] sm:text-[1.8rem]">{t.mobile.previewHeadline}</strong></div>
+              </div>
+              <div className="mx-3.5 mt-3 flex items-center justify-between rounded-xl bg-white p-3 text-[10px] shadow-sm"><span>{t.sticky.label}</span><b className="text-lg text-aegean">€35/day</b></div>
+              <div className="grid grid-cols-2 gap-2 px-3.5 py-2.5">
+                {t.mobile.previewItems.map(([label, value]) => <div className="rounded-xl bg-white p-2.5 text-[9px]" key={label}><span>{label}</span><b className="mt-0.5 block text-[11px]">{value}</b></div>)}
+              </div>
+              <div className="mx-3.5 grid h-10 place-items-center rounded-full bg-ink text-[11px] font-extrabold text-white">{t.mobile.previewCta} →</div>
+            </div>
+          </div>
+          <div className="relative z-20 mt-6 grid grid-cols-2 gap-2.5 lg:absolute lg:inset-0 lg:mt-0 lg:block" aria-label={t.mobile.factsLabel}>
+            {t.mobile.facts.map(([label, value], index) => (
+              <div
+                className={`mobile-fact relative flex items-center gap-3 overflow-hidden rounded-2xl border border-white/20 bg-[#143d75]/80 p-2.5 pr-3 text-white shadow-[0_22px_55px_rgba(5,25,56,.3)] backdrop-blur-xl sm:gap-4 sm:p-3 sm:pr-4 lg:absolute lg:w-[17rem] lg:rounded-full ${isVisible ? 'mobile-fact-visible' : ''} ${factPositions[index]}`}
+                key={label}
+                style={{ '--fact-delay': `${250 + index * 700}ms`, '--fact-x': index % 2 === 0 ? '120px' : '-120px', '--border-delay': `${index * -1.15}s` }}
+              >
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-aegean shadow-[0_8px_20px_rgba(0,0,0,.16)] sm:h-12 sm:w-12 lg:h-16 lg:w-16" aria-hidden="true"><MobileFactIcon index={index} /></span>
+                <span className="min-w-0">
+                  <small className="block text-[8px] font-extrabold uppercase tracking-[.09em] text-white/60 sm:text-[9px]">{label}</small>
+                  <strong className="mt-0.5 block text-sm font-black tracking-[-.04em] sm:text-lg lg:text-[1.45rem]">{value}</strong>
+                </span>
               </div>
             ))}
           </div>
-          <p className="mt-2 rounded-r-xl border-l-4 border-sun bg-orange-50 px-5 py-4 text-sm leading-6 text-slate-600"><strong className="text-ink">{t.benefits.promiseLabel}</strong> {t.benefits.promise}</p>
+          </div>
         </div>
       </div>
     </section>
   )
 }
 
-export function Booking({ t, cars, category, setCategory, language }) {
+function HowItWorks({ t }) {
+  const hw = t.booking.howItWorks
   return (
-    <section className="scroll-mt-20 py-14 sm:py-20" id="request">
-      <div className="page-wrap grid gap-8 rounded-[1.5rem] bg-aegean-dark p-6 text-white sm:p-10 lg:grid-cols-[.78fr_1.22fr] lg:gap-12">
-        <div className="self-center">
-          <p className="eyebrow text-amber-200 before:bg-amber-300">{t.booking.eyebrow}</p><h2 className="mt-3 text-4xl font-black leading-[1.04] tracking-[-0.045em] sm:text-5xl" id="booking-form-title">{t.booking.title}</h2><p className="mt-5 leading-7 text-blue-100">{t.booking.body}</p>
-          <div className="mt-6 grid gap-2 text-sm text-blue-50">{t.booking.ticks.map((tick) => <span className="before:mr-2 before:font-black before:text-amber-300 before:content-['✓']" key={tick}>{tick}</span>)}</div>
+    <div className="mb-6 sm:mb-8">
+      <p className="field-label">{hw.title}</p>
+      <div className="mt-3 grid grid-cols-1 divide-y divide-stone-300/60 rounded-2xl border border-stone-300/60 bg-white/70 backdrop-blur-sm sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+        {hw.steps.map(([title, body], index) => (
+          <div className="flex items-start gap-3 p-4 sm:flex-col sm:gap-2.5 sm:p-5" key={title}>
+            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-aegean/[.08] text-xs font-black text-aegean" aria-hidden="true">{index + 1}</span>
+            <div>
+              <h3 className="text-sm font-extrabold leading-5 text-ink">{title}</h3>
+              <p className="mt-1 text-sm leading-6 text-stone-600">{body}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export function Booking({ t, cars, selection, onSelectionChange, onResetSelection, language }) {
+  return (
+    <section className="section-pad scroll-mt-20" id="request">
+      <div className="page-wrap relative overflow-hidden rounded-[1.75rem] bg-[#e7ecf3] p-5 sm:rounded-[2.5rem] sm:p-9 lg:p-12">
+        <span className="pointer-events-none absolute -left-40 -top-44 h-[28rem] w-[28rem] rounded-full bg-white/80 blur-[90px]" aria-hidden="true" />
+        <span className="pointer-events-none absolute -bottom-44 -right-40 h-[26rem] w-[26rem] rounded-full bg-aegean/10 blur-[80px]" aria-hidden="true" />
+        <div className="relative grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start lg:gap-14">
+          <div className="lg:sticky lg:top-28">
+            <SectionMarker number="04" label={t.booking.eyebrow} />
+            <h2 className="mt-6 text-[clamp(2.6rem,4.5vw,4rem)] font-black leading-[.94] tracking-[-.064em]" id="booking-form-title">{t.booking.title}</h2>
+            <p className="mt-5 max-w-lg text-base leading-7 text-stone-600">{t.booking.body}</p>
+            <div className="mt-8 border-t border-slate-400/30 text-sm font-semibold text-stone-600">
+              {t.booking.ticks.map((tick, index) => (
+                <div className="flex items-center gap-3 border-b border-slate-400/30 py-3.5" key={tick}>
+                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white text-[11px] font-black text-aegean shadow-sm" aria-hidden="true">0{index + 1}</span>
+                  <span>{tick}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="min-w-0">
+          <HowItWorks t={t} />
+          <BookingForm selection={selection} onSelectionChange={onSelectionChange} onResetSelection={onResetSelection} cars={cars} t={t} language={language} />
+          </div>
         </div>
-        <BookingForm category={category} setCategory={setCategory} cars={cars} t={t} language={language} />
       </div>
     </section>
   )
@@ -167,17 +339,21 @@ export function Booking({ t, cars, category, setCategory, language }) {
 
 export function FAQ({ t }) {
   return (
-    <section className="section-pad scroll-mt-24 pt-0" id="faq">
-      <div className="page-wrap">
-        <div className="section-heading"><div><p className="eyebrow">{t.faq.eyebrow}</p><h2>{t.faq.title}</h2></div></div>
-        <div className="grid items-start gap-3 md:grid-cols-2">
-          {t.faq.items.map(([question, answer]) => (
-            <details className="group rounded-2xl border border-slate-200 bg-white" key={question} name="faq">
-              <summary className="flex w-full cursor-pointer list-none items-start justify-between gap-4 p-5 font-bold marker:hidden">
-                <span>{question}</span>
-                <span className="shrink-0 text-aegean transition group-open:rotate-45" aria-hidden="true">+</span>
+    <section className="section-pad scroll-mt-24 pt-2 sm:pt-6" id="faq">
+      <div className="page-wrap grid gap-9 lg:grid-cols-[.68fr_1.32fr] lg:gap-20">
+        <div className="lg:sticky lg:top-28 lg:self-start">
+          <SectionMarker number="05" label={t.faq.eyebrow} />
+          <h2 className="mt-6 max-w-xl text-[clamp(2.55rem,4.5vw,4rem)] font-black leading-[.94] tracking-[-.064em]">{t.faq.title}</h2>
+        </div>
+        <div className="space-y-2.5">
+          {t.faq.items.map(([question, answer], index) => (
+            <details className="group overflow-hidden rounded-[1.35rem] border border-stone-200/80 bg-white/75 shadow-[0_8px_28px_rgba(23,24,23,.035)] backdrop-blur-sm transition-[border-color,background-color,box-shadow] open:border-aegean/20 open:bg-white open:shadow-[0_16px_40px_rgba(23,24,23,.07)]" key={question} name="faq">
+              <summary className="flex w-full cursor-pointer list-none items-center gap-4 p-5 font-bold marker:hidden sm:p-6">
+                <span className="text-[10px] font-black tabular-nums text-stone-400">0{index + 1}</span>
+                <span className="flex-1">{question}</span>
+                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-aegean/15 bg-aegean/[.07] text-aegean transition-[transform,background-color,color] group-hover:bg-aegean group-hover:text-white group-open:rotate-45" aria-hidden="true">+</span>
               </summary>
-              <p className="-mt-2 px-5 pb-5 text-sm leading-6 text-slate-600">{answer}</p>
+              <p className="-mt-2 pb-6 pl-[4.25rem] pr-6 text-sm leading-7 text-stone-600">{answer}</p>
             </details>
           ))}
         </div>

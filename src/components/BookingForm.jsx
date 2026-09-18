@@ -1,13 +1,11 @@
 import { useEffect, useMemo, useRef, useState } from 'react'
-import { createBookingPayload, localIsoDate, nextDay, submitBookingRequest, validateBooking } from '../lib/bookingForm'
+import { bookingFieldIds, calculateTripDetails, createBookingPayload, localIsoDate, nextDay, submitBookingRequest, validateBooking } from '../lib/bookingForm'
+import DateInput from './DateInput'
+import TripTotal from './TripTotal'
 import TurnstileWidget from './TurnstileWidget'
 
 const initialValues = {
-  name: '', email: '', phone: '', pickupDate: '', returnDate: '', gotcha: '',
-}
-
-const fieldIds = {
-  name: 'full-name', email: 'email', pickupDate: 'pickup-date', returnDate: 'return-date', category: 'category', turnstile: 'turnstile-status',
+  name: '', email: '', phone: '', gotcha: '',
 }
 
 function FieldError({ error, id }) {
@@ -15,28 +13,14 @@ function FieldError({ error, id }) {
   return <p className="mt-1.5 text-xs font-semibold text-red-700" id={id}><span aria-hidden="true">! </span>{error}</p>
 }
 
-function openDatePicker(event) {
-  if (typeof event.currentTarget.showPicker !== 'function') return
-  event.preventDefault()
-  try {
-    event.currentTarget.showPicker()
-  } catch {
-    // Browsers without a programmatic picker keep their native date-input behavior.
-  }
-}
-
-function preventDateSegmentSelection(event) {
-  if (typeof event.currentTarget.showPicker === 'function') event.preventDefault()
-}
-
-export default function BookingForm({ category, setCategory, cars, t, language }) {
+export default function BookingForm({ selection, onSelectionChange, onResetSelection, cars, t, language }) {
   const [values, setValues] = useState(initialValues)
   const [errors, setErrors] = useState({})
   const [status, setStatus] = useState('idle')
   const [statusCode, setStatusCode] = useState('')
   const [turnstileToken, setTurnstileToken] = useState('')
   const today = useMemo(() => localIsoDate(), [])
-  const returnMin = values.pickupDate ? nextDay(values.pickupDate) : today
+  const returnMin = selection.pickupDate ? nextDay(selection.pickupDate) : today
   const resetTurnstileRef = useRef(null)
   const submittingRef = useRef(false)
   const statusRef = useRef(null)
@@ -68,15 +52,10 @@ export default function BookingForm({ category, setCategory, cars, t, language }
     clearFieldError(field)
   }
 
-  const handlePickup = (event) => {
-    const pickupDate = event.target.value
-    setValues((current) => ({
-      ...current,
-      pickupDate,
-      returnDate: current.returnDate && current.returnDate <= pickupDate ? '' : current.returnDate,
-    }))
-    clearFieldError('pickupDate')
-    if (values.returnDate && values.returnDate <= pickupDate) clearFieldError('returnDate')
+  const updateSelection = (field) => (event) => {
+    onSelectionChange(field, event.target.value)
+    clearFieldError(field)
+    if (field === 'pickupDate' && selection.returnDate && selection.returnDate <= event.target.value) clearFieldError('returnDate')
   }
 
   const handleToken = (token) => {
@@ -85,10 +64,12 @@ export default function BookingForm({ category, setCategory, cars, t, language }
   }
 
   const focusFirstError = (fieldErrors) => {
-    const firstField = Object.keys(fieldIds).find((field) => fieldErrors[field])
+    const firstField = Object.keys(bookingFieldIds).find((field) => fieldErrors[field])
     if (!firstField) return
-    window.requestAnimationFrame(() => document.getElementById(fieldIds[firstField])?.focus())
+    window.requestAnimationFrame(() => document.getElementById(bookingFieldIds[firstField])?.focus())
   }
+
+  const tripDetails = useMemo(() => calculateTripDetails(selection, cars), [selection, cars])
 
   const handleSubmit = async (event) => {
     event.preventDefault()
@@ -104,7 +85,7 @@ export default function BookingForm({ category, setCategory, cars, t, language }
       return
     }
 
-    const submissionValues = { ...values, category, turnstileToken }
+    const submissionValues = { ...values, ...selection, turnstileToken }
     const fieldErrors = validateBooking(submissionValues, today)
     if (Object.keys(fieldErrors).length) {
       setErrors(fieldErrors)
@@ -114,9 +95,9 @@ export default function BookingForm({ category, setCategory, cars, t, language }
       return
     }
 
-    const selectedCar = cars.find((car) => car.id === category)
+    const selectedCar = cars.find((car) => car.id === selection.category)
     const payload = createBookingPayload(submissionValues, {
-      categoryLabel: selectedCar?.name || category,
+      categoryLabel: selectedCar?.name || selection.category,
       language,
       pageUrl: window.location.href,
       submittedAt: new Date().toISOString(),
@@ -129,7 +110,7 @@ export default function BookingForm({ category, setCategory, cars, t, language }
 
     if (result === 'success') {
       setValues(initialValues)
-      setCategory('')
+      onResetSelection()
       setErrors({})
       setTurnstileToken('')
       setStatus('success')
@@ -148,12 +129,26 @@ export default function BookingForm({ category, setCategory, cars, t, language }
     setStatusCode('')
   }
 
-  const fieldClass = (field) => `mt-2 min-h-12 w-full min-w-0 max-w-full rounded-xl border bg-white px-3.5 text-base text-ink outline-none transition focus:border-aegean focus:ring-4 focus:ring-aegean/10 ${errors[field] ? 'border-red-500' : 'border-slate-300'}`
-  const errorText = (field) => errors[field] ? t.booking.errors[errors[field]] : ''
+  const hasError = (field) => {
+    const error = errors[field]
+    if (!error) return false
+    if (field === 'pickupDate') {
+      if (error === 'pickupRequired') return !selection.pickupDate
+      if (error === 'pickupPast') return Boolean(selection.pickupDate && selection.pickupDate < today)
+    }
+    if (field === 'returnDate') {
+      if (error === 'returnRequired') return !selection.returnDate
+      if (error === 'returnAfter') return Boolean(selection.returnDate && selection.pickupDate && selection.returnDate <= selection.pickupDate)
+    }
+    if (field === 'category' && error === 'categoryRequired') return !selection.category
+    return true
+  }
+  const fieldClass = (field) => `mt-2 min-h-14 w-full min-w-0 max-w-full rounded-2xl border bg-[#f3f5f7] px-4 text-base text-ink outline-none transition-[background-color,border-color,box-shadow] duration-200 hover:bg-white focus:border-aegean focus:bg-white focus:ring-4 focus:ring-aegean/10 ${hasError(field) ? 'border-red-500' : 'border-slate-200'}`
+  const errorText = (field) => hasError(field) ? t.booking.errors[errors[field]] : ''
 
   if (status === 'success') {
     return (
-      <div className="flex min-h-[430px] flex-col items-start justify-center rounded-2xl bg-white p-6 text-ink shadow-sm sm:p-10" role="status" aria-live="polite" tabIndex="-1" ref={successRef}>
+      <div className="flex min-h-[430px] flex-col items-start justify-center rounded-[1.75rem] border border-white/80 bg-white/90 p-6 text-ink shadow-[0_24px_65px_rgba(23,24,23,.09)] backdrop-blur-xl sm:p-10" role="status" aria-live="polite" tabIndex="-1" ref={successRef}>
         <span className="grid h-12 w-12 place-items-center rounded-full bg-emerald-100 text-2xl font-black text-emerald-700" aria-hidden="true">✓</span>
         <h3 className="mt-5 text-2xl font-black tracking-tight">{t.booking.successTitle}</h3>
         <p className="mt-3 max-w-lg leading-7 text-slate-600">{t.booking.successBody}</p>
@@ -164,7 +159,7 @@ export default function BookingForm({ category, setCategory, cars, t, language }
   }
 
   return (
-    <form className="relative grid w-full min-w-0 grid-cols-1 gap-4 rounded-2xl bg-white p-5 text-ink shadow-sm sm:grid-cols-2 sm:p-6" onSubmit={handleSubmit} noValidate aria-labelledby="booking-form-title" aria-busy={status === 'submitting'} action={endpoint} method="POST">
+    <form className="relative grid w-full min-w-0 grid-cols-1 gap-5 rounded-[1.75rem] border border-white/80 bg-white/90 p-5 text-ink shadow-[0_24px_65px_rgba(23,24,23,.09)] backdrop-blur-xl sm:grid-cols-2 sm:p-7" onSubmit={handleSubmit} noValidate aria-labelledby="booking-form-title" aria-busy={status === 'submitting'} action={endpoint} method="POST">
       <div>
         <label className="field-label" htmlFor="full-name">{t.booking.labels.name}</label>
         <input className={fieldClass('name')} id="full-name" name="name" type="text" autoComplete="name" placeholder={t.booking.placeholders.name} value={values.name} onChange={updateValue('name')} aria-invalid={Boolean(errors.name)} aria-describedby={errors.name ? 'name-error' : undefined} required />
@@ -177,17 +172,17 @@ export default function BookingForm({ category, setCategory, cars, t, language }
       </div>
       <div className="min-w-0">
         <label className="field-label" htmlFor="pickup-date">{t.booking.labels.pickup}</label>
-        <input className={`${fieldClass('pickupDate')} cursor-pointer`} id="pickup-date" name="pickup_date" type="date" min={today} value={values.pickupDate} onPointerDown={openDatePicker} onClick={preventDateSegmentSelection} onChange={handlePickup} aria-invalid={Boolean(errors.pickupDate)} aria-describedby={errors.pickupDate ? 'pickup-error' : undefined} required />
+        <DateInput className={`${fieldClass('pickupDate')} cursor-pointer`} id="pickup-date" name="pickup_date" min={today} value={selection.pickupDate} onChange={updateSelection('pickupDate')} aria-invalid={hasError('pickupDate')} aria-describedby={hasError('pickupDate') ? 'pickup-error' : undefined} required />
         <FieldError id="pickup-error" error={errorText('pickupDate')} />
       </div>
       <div className="min-w-0">
         <label className="field-label" htmlFor="return-date">{t.booking.labels.return}</label>
-        <input className={`${fieldClass('returnDate')} cursor-pointer`} id="return-date" name="return_date" type="date" min={returnMin} value={values.returnDate} onPointerDown={openDatePicker} onClick={preventDateSegmentSelection} onChange={updateValue('returnDate')} aria-invalid={Boolean(errors.returnDate)} aria-describedby={errors.returnDate ? 'return-error' : undefined} required />
+        <DateInput className={`${fieldClass('returnDate')} cursor-pointer`} id="return-date" name="return_date" min={returnMin} value={selection.returnDate} onChange={updateSelection('returnDate')} aria-invalid={hasError('returnDate')} aria-describedby={hasError('returnDate') ? 'return-error' : undefined} required />
         <FieldError id="return-error" error={errorText('returnDate')} />
       </div>
       <div className="sm:col-span-2">
         <label className="field-label" htmlFor="category">{t.booking.labels.category}</label>
-        <select className={fieldClass('category')} id="category" name="car_category" value={category} onChange={(event) => { setCategory(event.target.value); clearFieldError('category') }} aria-invalid={Boolean(errors.category)} aria-describedby={errors.category ? 'category-error' : undefined} required>
+        <select className={fieldClass('category')} id="category" name="car_category" value={selection.category} onChange={updateSelection('category')} aria-invalid={hasError('category')} aria-describedby={hasError('category') ? 'category-error' : undefined} required>
           <option value="" disabled>{t.booking.categoryPlaceholder}</option>
           {cars.map((car) => <option value={car.id} key={car.id}>{car.name} — €{car.price}{t.fleet.day}</option>)}
         </select>
@@ -201,12 +196,14 @@ export default function BookingForm({ category, setCategory, cars, t, language }
         <label htmlFor="company-website">Leave this field empty</label>
         <input id="company-website" name="_gotcha" type="text" tabIndex="-1" autoComplete="off" value={values.gotcha} onChange={updateValue('gotcha')} />
       </div>
+      {tripDetails && <TripTotal t={t} tripDetails={tripDetails} />}
       <TurnstileWidget error={errorText('turnstile')} language={language} onToken={handleToken} resetRef={resetTurnstileRef} siteKey={turnstileSiteKey} t={t.booking.turnstile} />
-      <button className="button-primary mt-1 w-full sm:col-span-2" type="submit" disabled={status === 'submitting' || status === 'validating' || !turnstileToken}>
+      <p className="sm:col-span-2 -mb-1 text-xs font-semibold text-stone-500">{t.booking.paymentNote}</p>
+      <button className="button-primary mt-1 min-h-14 w-full sm:col-span-2" type="submit" disabled={status === 'submitting' || status === 'validating' || !turnstileToken}>
         {(status === 'submitting' || status === 'validating') && <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white motion-reduce:animate-none" aria-hidden="true" />}
         {status === 'submitting' ? t.booking.sending : status === 'validating' ? t.booking.validating : t.booking.submit}<span aria-hidden="true">{status === 'idle' || status === 'error' ? '→' : ''}</span>
       </button>
-      <div className="min-h-12 sm:col-span-2" aria-live="assertive">
+      <div className="sm:col-span-2" aria-live="assertive">
         {statusCode && <p className="rounded-xl bg-amber-50 px-4 py-3 text-sm font-semibold text-amber-900" role="alert" tabIndex="-1" ref={statusRef}><span aria-hidden="true">! </span>{t.booking.errors[statusCode]}</p>}
       </div>
     </form>

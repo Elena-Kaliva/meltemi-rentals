@@ -2,12 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
+@property --fact-border-angle {
+  syntax: '<angle>';
+  initial-value: 0deg;
+  inherits: false;
+}
+
 @layer base {
   html { scroll-behavior: smooth; }
   body {
     @apply m-0 overflow-x-hidden bg-paper text-ink antialiased;
     font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+    text-rendering: optimizeLegibility;
+    background-image:
+      radial-gradient(circle at 8% 26%, rgba(43, 95, 169, .055), transparent 24rem),
+      radial-gradient(circle at 92% 68%, rgba(255, 255, 255, .7), transparent 30rem);
   }
+  ::selection { @apply bg-aegean text-white; }
   button, a, input, select, summary { @apply focus-visible:outline-none focus-visible:ring-4 focus-visible:ring-aegean/25; }
   button:disabled { @apply cursor-wait opacity-70; }
   input[type="date"]::-webkit-datetime-edit-day-field:focus,
@@ -40,22 +52,110 @@
 }
 
 @layer components {
-  .page-wrap { @apply mx-auto w-[calc(100%-1.75rem)] max-w-[73.75rem] sm:w-[calc(100%-2.5rem)]; }
-  .button-primary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-transparent bg-aegean px-5 text-sm font-extrabold text-white shadow-[0_9px_24px_rgba(30,79,154,.2)] transition-colors hover:bg-aegean-dark; }
-  .button-secondary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-xl border border-slate-300 bg-white px-5 text-sm font-extrabold text-ink transition-colors hover:border-aegean hover:text-aegean; }
-  .nav-link { @apply rounded px-1 py-2 font-medium transition-colors hover:text-aegean; }
-  .eyebrow { @apply inline-flex items-center gap-2 text-xs font-extrabold uppercase tracking-[.055em] text-aegean before:h-0.5 before:w-6 before:bg-sun before:content-['']; }
+  .page-wrap { @apply mx-auto w-[calc(100%-1.5rem)] max-w-[73.75rem] sm:w-[calc(100%-2.5rem)]; }
+  .button-primary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-transparent bg-ink px-5 text-sm font-extrabold text-white shadow-[0_8px_20px_rgba(23,24,23,.12)] transition-[background-color,box-shadow] duration-300 hover:bg-aegean hover:shadow-[0_14px_34px_rgba(43,95,169,.22)]; }
+  .button-secondary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-stone-300 bg-white px-5 text-sm font-extrabold text-ink shadow-[0_6px_18px_rgba(23,24,23,.06)] transition-[border-color,background-color,box-shadow] duration-300 hover:border-aegean/30 hover:bg-aegean-soft hover:shadow-[0_10px_24px_rgba(43,95,169,.1)]; }
+  .nav-link { @apply rounded-full px-3 py-2 font-medium transition-colors hover:bg-ink/[.045] hover:text-ink; }
   .section-pad { @apply py-14 sm:py-20; }
-  .section-heading { @apply mb-7 grid gap-3 lg:grid-cols-[1.1fr_1fr] lg:items-end lg:gap-12; }
-  .section-heading h2 { @apply mt-2 text-4xl font-black leading-[1.04] tracking-[-0.05em] sm:text-5xl; }
-  .section-heading > p { @apply max-w-xl leading-7 text-slate-600 lg:justify-self-end; }
   .fleet-scroll { @apply flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 [scrollbar-width:thin] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4; }
-  .car-meta { @apply rounded-lg bg-stone-100 px-2 py-1.5; }
-  .field-label { @apply text-xs font-extrabold; }
-  .brand-mark { @apply relative h-8 w-8 shrink-0 overflow-hidden rounded-full bg-aegean before:absolute before:-left-1 before:top-2 before:h-3 before:w-10 before:-rotate-[8deg] before:rounded-[50%] before:bg-white before:content-[''] after:absolute after:-left-1.5 after:top-[18px] after:h-2.5 after:w-10 after:-rotate-[8deg] after:rounded-[50%] after:bg-sun after:content-['']; }
+  .fleet-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    padding: 1.5px;
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
+    background: conic-gradient(from var(--fact-border-angle), transparent 0deg, transparent 260deg, rgba(148, 163, 184, .35) 285deg, rgba(255, 255, 255, .95) 310deg, rgba(43, 95, 169, .95) 332deg, transparent 360deg);
+    transition: opacity .35s ease;
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+  .fleet-card:hover::before { opacity: 1; }
+  .fleet-car-image {
+    transform: scale(1.08);
+  }
+  .car-meta { @apply rounded-full bg-stone-100 px-2.5 py-1.5; }
+  .field-label { @apply text-[10px] font-extrabold uppercase tracking-[.09em] text-slate-600; }
+  .hero-search-label { @apply mb-1 block text-[9px] font-extrabold uppercase tracking-[.07em] text-stone-500; }
+  .hero-search-input { @apply block min-h-5 w-full min-w-0 border-0 bg-transparent p-0 text-sm font-bold text-ink outline-none ring-0 focus:ring-0; }
+  .mobile-fact::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    padding: 1px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(from var(--fact-border-angle), transparent 0deg, transparent 278deg, rgba(203, 213, 225, .18) 298deg, rgba(255, 255, 255, .92) 323deg, rgba(203, 213, 225, .18) 346deg, transparent 360deg);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .hero-image {
+    animation: hero-image-in 1.4s cubic-bezier(.2,.75,.25,1) both;
+  }
+  .hero-eyebrow-row {
+    animation: hero-fade-in .65s ease-out both;
+  }
+  .hero-copy {
+    animation: hero-rise-in .8s .08s cubic-bezier(.2,.75,.25,1) both;
+  }
+  .hero-availability {
+    animation: hero-control-in .75s .18s cubic-bezier(.2,.75,.25,1) both;
+  }
+  .mobile-fact:not(.mobile-fact-visible) {
+    opacity: 0;
+    visibility: hidden;
+  }
+  .mobile-fact-visible {
+    animation: mobile-fact-pop 1.05s var(--fact-delay) cubic-bezier(.22,1,.36,1) both;
+    will-change: opacity, transform;
+  }
+  .mobile-fact::before {
+    animation: mobile-fact-border 5.5s var(--border-delay) linear infinite;
+  }
+  .fleet-card:hover::before {
+    animation: mobile-fact-border 2.8s linear infinite;
+  }
+}
+
+@keyframes hero-image-in {
+  from { opacity: .72; transform: scale(1.065); }
+  to { opacity: 1; transform: scale(1.01); }
+}
+
+@keyframes hero-fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes hero-rise-in {
+  from { opacity: 0; transform: translate(-50%, 18px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes hero-control-in {
+  from { opacity: 0; transform: translate(-50%, 16px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+@keyframes mobile-fact-pop {
+  0% { opacity: 0; visibility: hidden; transform: translate(var(--fact-x), 10px) scale(.82); }
+  1% { opacity: 0; visibility: visible; }
+  78% { opacity: 1; visibility: visible; transform: translate(0, 0) scale(1.025); }
+  100% { opacity: 1; visibility: visible; transform: translate(0, 0) scale(1); }
+}
+
+@keyframes mobile-fact-border {
+  to { --fact-border-angle: 360deg; }
 }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 0.01ms !important; }
 }
