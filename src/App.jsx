@@ -85,31 +85,34 @@ export default function App() {
         <span className="pointer-events-none absolute -bottom-64 -left-48 h-[32rem] w-[32rem] rounded-full bg-slate-400/10 blur-[110px]" aria-hidden="true" />
 
         <div className="page-wrap relative py-10 sm:py-14">
-          <div className="grid gap-8 border-b border-white/15 pb-10 lg:grid-cols-[1fr_1.15fr_auto] lg:items-end lg:gap-12">
-            <a className="w-fit rounded text-white" href="#top" aria-label="Meltemi Rentals home"><Brand /></a>
-            <h2 className="max-w-2xl text-[clamp(2rem,4vw,3.5rem)] font-black leading-[.96] tracking-[-.06em] [text-wrap:balance]">{t.footer.tagline}</h2>
-            <a className="inline-flex min-h-12 w-fit items-center justify-center gap-3 rounded-full bg-white px-5 text-sm font-extrabold text-ink transition-[background-color,color] duration-300 hover:bg-aegean hover:text-white" href="#request">{t.nav.cta}<span aria-hidden="true">↗</span></a>
-          </div>
-
-          <div className="grid gap-8 py-8 sm:grid-cols-2 lg:grid-cols-[1fr_auto_auto] lg:items-start lg:gap-16">
+          <div className="grid gap-10 pb-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
             <div>
-              <p className="text-[10px] font-extrabold uppercase tracking-[.12em] text-white/45">{t.footer.location}</p>
-              <a className="mt-2 inline-block text-lg font-bold transition-colors hover:text-blue-300" href="mailto:hello@meltemirentals.gr">hello@meltemirentals.gr</a>
+              <a className="w-fit rounded text-white" href="#top" aria-label="Meltemi Rentals home"><Brand /></a>
+              <h2 className="mt-6 max-w-sm text-[clamp(1.65rem,2.6vw,2.35rem)] font-black leading-[1.08] tracking-[-.04em] [text-wrap:balance]">{t.footer.tagline}</h2>
+              <p className="mt-8 text-xs text-white/40">© {new Date().getFullYear()} {t.footer.rights}</p>
             </div>
-            <nav className="flex flex-col items-start gap-2 text-sm text-white/65" aria-label={t.footer.navigationLabel}>
-              <a className="py-1 transition-colors hover:text-white" href="#fleet">{t.nav.cars}</a>
-              <a className="py-1 transition-colors hover:text-white" href="#included">{t.nav.included}</a>
-              <a className="py-1 transition-colors hover:text-white" href="#faq">{t.nav.faq}</a>
-            </nav>
-            <a className="group flex items-center gap-3 text-sm font-bold text-white/65 transition-colors hover:text-white sm:justify-self-end" href="#top">
-              {t.footer.backToTop}
-              <span className="grid h-9 w-9 place-items-center rounded-full border border-white/20 transition-[background-color,color] group-hover:bg-white group-hover:text-ink" aria-hidden="true">↑</span>
-            </a>
-          </div>
 
-          <div className="flex flex-col gap-2 border-t border-white/10 pt-6 text-xs text-white/40 sm:flex-row sm:items-center sm:justify-between">
-            <p>© {new Date().getFullYear()} {t.footer.rights}</p>
-            <p>{t.footer.descriptor}</p>
+            <div className="flex flex-col gap-8">
+              <a className="inline-flex min-h-12 w-fit items-center justify-center gap-3 rounded-full bg-white px-5 text-sm font-extrabold text-ink transition-[background-color,color] duration-300 hover:bg-aegean hover:text-white" href="#request">{t.nav.cta}<span aria-hidden="true">↗</span></a>
+
+              <div className="grid gap-8 sm:grid-cols-3">
+                <div>
+                  <p className="text-[10px] font-extrabold uppercase tracking-[.12em] text-white/45">{t.footer.location}</p>
+                  <a className="mt-2 inline-block text-lg font-bold transition-colors hover:text-blue-300" href="mailto:hello@meltemirentals.gr">hello@meltemirentals.gr</a>
+                </div>
+                <nav className="flex flex-col items-start gap-2 text-sm text-white/65" aria-label={t.footer.navigationLabel}>
+                  <a className="py-1 transition-colors hover:text-white" href="#fleet">{t.nav.cars}</a>
+                  <a className="py-1 transition-colors hover:text-white" href="#included">{t.nav.included}</a>
+                  <a className="py-1 transition-colors hover:text-white" href="#faq">{t.nav.faq}</a>
+                </nav>
+                <a className="group flex items-center gap-3 text-sm font-bold text-white/65 transition-colors hover:text-white" href="#top">
+                  {t.footer.backToTop}
+                  <span className="grid h-9 w-9 place-items-center rounded-full border border-white/20 transition-[background-color,color] group-hover:bg-white group-hover:text-ink" aria-hidden="true">↑</span>
+                </a>
+              </div>
+
+              <p className="border-t border-white/10 pt-6 text-xs text-white/40">{t.footer.descriptor}</p>
+            </div>
           </div>
         </div>
       </footer>
