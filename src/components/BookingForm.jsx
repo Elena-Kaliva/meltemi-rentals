@@ -8,6 +8,14 @@ const initialValues = {
   name: '', email: '', phone: '', gotcha: '',
 }
 
+// Cloudflare's official "always passes" test key. The real site key is
+// restricted to production/preview domains in the Cloudflare dashboard, so
+// loading it from `localhost` makes Turnstile retry-loop and spam the
+// console with 400s. Using the test key in dev keeps local testing quiet
+// without touching the real key or production behaviour.
+// https://developers.cloudflare.com/turnstile/troubleshooting/testing/
+const TURNSTILE_DEV_SITE_KEY = '1x00000000000000000000AA'
+
 function FieldError({ error, id }) {
   if (!error) return null
   return <p className="mt-1.5 text-xs font-semibold text-red-700" id={id}><span aria-hidden="true">! </span>{error}</p>
@@ -26,7 +34,8 @@ export default function BookingForm({ selection, onSelectionChange, onResetSelec
   const statusRef = useRef(null)
   const successRef = useRef(null)
   const formId = import.meta.env.VITE_FORMSPREE_FORM_ID?.trim()
-  const turnstileSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim()
+  const configuredSiteKey = import.meta.env.VITE_TURNSTILE_SITE_KEY?.trim()
+  const turnstileSiteKey = import.meta.env.DEV && configuredSiteKey ? TURNSTILE_DEV_SITE_KEY : configuredSiteKey
   const endpoint = formId ? `https://formspree.io/f/${formId}` : ''
 
   useEffect(() => {
