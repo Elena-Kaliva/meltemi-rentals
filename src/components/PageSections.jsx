@@ -304,9 +304,7 @@ export function MobileShowcase({ t }) {
 export function Booking({ t, cars, selection, onSelectionChange, onResetSelection, language }) {
   return (
     <section className="section-pad scroll-mt-20" id="request">
-      <div className="page-wrap relative overflow-hidden">
-        <span className="pointer-events-none absolute -left-40 -top-44 h-[28rem] w-[28rem] rounded-full bg-aegean-soft/70 blur-[90px]" aria-hidden="true" />
-        <span className="pointer-events-none absolute -bottom-44 -right-40 h-[26rem] w-[26rem] rounded-full bg-aegean/10 blur-[80px]" aria-hidden="true" />
+      <div className="page-wrap relative">
         <div className="relative grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start lg:gap-14">
           <div className="lg:sticky lg:top-28">
             <SectionMarker number="04" label={t.booking.eyebrow} />
