@@ -246,12 +246,12 @@ function MobileFactIcon({ kind }) {
 
 export function MobileShowcase({ t }) {
   const factPositions = [
-    '-left-1 top-[3%] lg:left-[2%] lg:top-[12%]',
-    '-right-1 top-[19%] lg:right-[2%] lg:top-[12%]',
-    'left-0 top-[35%] lg:left-[9%] lg:top-[45%]',
-    'right-0 top-[51%] lg:right-[9%] lg:top-[45%]',
-    'left-0 top-[67%] lg:left-[2%] lg:top-[78%]',
-    'right-0 top-[83%] lg:right-[2%] lg:top-[78%]',
+    '-left-1 top-[5%] lg:left-[2%] lg:top-[12%]',
+    '-right-1 top-[5%] lg:right-[2%] lg:top-[12%]',
+    'left-0 top-[43%] lg:left-[9%] lg:top-[45%]',
+    'right-0 top-[43%] lg:right-[9%] lg:top-[45%]',
+    'left-0 top-[81%] lg:left-[2%] lg:top-[78%]',
+    'right-0 top-[81%] lg:right-[2%] lg:top-[78%]',
   ]
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
@@ -283,15 +283,15 @@ export function MobileShowcase({ t }) {
           <h2 className="mt-6 text-[clamp(2.5rem,5vw,4.25rem)] font-extrabold leading-[.94] tracking-[-.064em]">{t.mobile.title}</h2>
           <p className="mx-auto mt-5 max-w-2xl leading-7 text-white/80">{t.mobile.body}</p>
           </div>
-          <div className="relative left-1/2 mx-auto mt-8 min-h-[32rem] w-screen max-w-6xl -translate-x-1/2 px-2 sm:left-auto sm:min-h-[44rem] sm:w-auto sm:translate-x-0 sm:px-0">
+          <div className="relative left-1/2 mx-auto mt-8 min-h-[29rem] w-screen max-w-6xl -translate-x-1/2 px-2 sm:left-auto sm:min-h-[44rem] sm:w-auto sm:translate-x-0 sm:px-0">
           <span className="pointer-events-none absolute left-1/2 top-[48%] hidden text-[11rem] font-black leading-none tracking-[-.09em] text-white/[.045] lg:block lg:-translate-x-1/2 lg:-translate-y-1/2" aria-hidden="true">KOS</span>
           <span className="pointer-events-none absolute left-1/2 top-[48%] hidden h-[39rem] w-[39rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 lg:block" aria-hidden="true" />
           <span className="pointer-events-none absolute left-1/2 top-[48%] hidden h-[29rem] w-[29rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[.07] lg:block" aria-hidden="true" />
-          <div className="relative z-20 mx-auto h-[25rem] w-[11.75rem] rounded-[1.8rem] bg-[#101110] p-1.5 shadow-[0_34px_80px_rgba(0,0,0,.3)] sm:h-[40.5rem] sm:w-[20.625rem] sm:rounded-[2.875rem] sm:p-2.5">
-            <span className="absolute left-1/2 top-2.5 z-20 h-4 w-20 -translate-x-1/2 rounded-full bg-[#101110] sm:top-3.5 sm:h-6 sm:w-28" aria-hidden="true" />
-            <div className="h-full overflow-hidden rounded-[1.5rem] bg-paper text-ink sm:rounded-[2.375rem]">
-              <div className="flex h-10 items-center justify-between px-3 text-[8px] font-extrabold sm:h-14 sm:px-4 sm:text-xs"><span><b>meltemi</b> rentals</span><span className="grid h-5 w-5 place-items-center rounded-full bg-ink text-white sm:h-7 sm:w-7" aria-hidden="true">≡</span></div>
-              <div className="relative h-[9.75rem] overflow-hidden sm:h-[17.75rem]">
+          <div className="relative z-20 mx-auto h-[23rem] w-[10.75rem] rounded-[1.7rem] bg-[#101110] p-1.5 shadow-[0_34px_80px_rgba(0,0,0,.3)] sm:h-[40.5rem] sm:w-[20.625rem] sm:rounded-[2.875rem] sm:p-2.5">
+            <span className="absolute left-1/2 top-2.5 z-20 h-4 w-[4.5rem] -translate-x-1/2 rounded-full bg-[#101110] sm:top-3.5 sm:h-6 sm:w-28" aria-hidden="true" />
+            <div className="h-full overflow-hidden rounded-[1.4rem] bg-paper text-ink sm:rounded-[2.375rem]">
+              <div className="flex h-9 items-center justify-between px-2.5 text-[7px] font-extrabold sm:h-14 sm:px-4 sm:text-xs"><span><b>meltemi</b> rentals</span><span className="grid h-5 w-5 place-items-center rounded-full bg-ink text-white sm:h-7 sm:w-7" aria-hidden="true">≡</span></div>
+              <div className="relative h-[8.75rem] overflow-hidden sm:h-[17.75rem]">
                 <img className="h-full w-full object-cover object-[60%_center]" src={heroSmall} alt="" width="840" height="473" loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
                 <div className="absolute inset-x-3 bottom-3 z-10 text-white sm:inset-x-4 sm:bottom-4"><small className="text-[6px] font-bold uppercase tracking-wide sm:text-[9px]">{t.mobile.previewContext}</small><strong className="mt-1 block text-base font-black leading-[.96] tracking-[-.045em] sm:text-[1.8rem] sm:tracking-[-.055em]">{t.mobile.previewHeadline}</strong></div>
