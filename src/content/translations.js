@@ -26,7 +26,7 @@ export const translations = {
       compareBody: 'Look at the final rental conditions too. Insurance, airport fees, card holds and fuel can make the cheaper headline price cost more.',
       example: 'Example advertised rate', starts: 'Starts at', insurance: 'Required insurance', airport: 'Airport delivery', held: 'Amount held on card', fuel: 'Fuel charged above pump price',
       approximate: 'Approx. final cost', exampleNote: 'Illustrative scenario from the assignment brief — not a claim about a named competitor.',
-      clear: 'Clear from the start', included: 'Included', zeroInsurance: 'Full insurance, zero excess', airportIncluded: 'Kos Airport pickup & return', secondDriver: 'Second driver', fullFuel: 'Full-to-full fuel', meltemiNote: '€35 is easier to budget because the important extras are already in the price.',
+      clear: 'Clear from the start', included: 'Included', zeroInsurance: 'Full insurance, zero excess', airportIncluded: 'Kos Airport pickup & return', secondDriver: 'Second driver', fullFuel: 'Full-to-full fuel', support: '24/7 support', meltemiNote: '€35 is easier to budget because the important extras are already in the price.',
     },
     fleet: {
       eyebrow: 'Choose your car', title: 'A practical car for the trip you have in mind.', intro: 'Four straightforward categories, with the essentials included in every daily rate.',
@@ -114,7 +114,7 @@ export const translations = {
       intro: 'Σημασία έχει το ποσό που θα πληρώσεις τελικά. Σύγκρινε τους τελικούς όρους της ενοικίασης, όχι μόνο την πρώτη τιμή που βλέπεις.',
       compareTitle: 'Πριν συγκρίνεις δύο ημερήσιες τιμές…', compareBody: 'Κοίταξε και τους τελικούς όρους. Η ασφάλιση, οι χρεώσεις αεροδρομίου, η δέσμευση ποσού στην κάρτα και τα καύσιμα μπορούν να κάνουν μια φαινομενικά χαμηλή τιμή πολύ ακριβότερη.',
       example: 'Παράδειγμα αρχικής τιμής', starts: 'Ξεκινά από', insurance: 'Υποχρεωτική ασφάλιση', airport: 'Παράδοση στο αεροδρόμιο', held: 'Δέσμευση στην κάρτα', fuel: 'Επιπλέον χρέωση καυσίμων',
-      approximate: 'Εκτιμώμενο τελικό κόστος', exampleNote: 'Το παράδειγμα είναι ενδεικτικό και δεν αφορά συγκεκριμένη εταιρεία.', clear: 'Ξεκάθαρα από την αρχή', included: 'Περιλαμβάνεται', zeroInsurance: 'Πλήρης ασφάλιση, χωρίς απαλλαγή', airportIncluded: 'Παραλαβή & επιστροφή στο αεροδρόμιο', secondDriver: 'Δεύτερος οδηγός', fullFuel: 'Καύσιμα: γεμάτο-γεμάτο', meltemiNote: 'Με 35€ την ημέρα γνωρίζεις εξαρχής το κόστος, αφού όλα τα σημαντικά επιπλέον περιλαμβάνονται ήδη στην τιμή.',
+      approximate: 'Εκτιμώμενο τελικό κόστος', exampleNote: 'Το παράδειγμα είναι ενδεικτικό και δεν αφορά συγκεκριμένη εταιρεία.', clear: 'Ξεκάθαρα από την αρχή', included: 'Περιλαμβάνεται', zeroInsurance: 'Πλήρης ασφάλιση, χωρίς απαλλαγή', airportIncluded: 'Παραλαβή & επιστροφή στο αεροδρόμιο', secondDriver: 'Δεύτερος οδηγός', fullFuel: 'Καύσιμα: γεμάτο-γεμάτο', support: 'Υποστήριξη 24/7', meltemiNote: 'Με 35€ την ημέρα γνωρίζεις εξαρχής το κόστος, αφού όλα τα σημαντικά επιπλέον περιλαμβάνονται ήδη στην τιμή.',
     },
     fleet: {
       eyebrow: 'Επίλεξε αυτοκίνητο', title: 'Βρες το αυτοκίνητο που ταιριάζει στο ταξίδι σου.', intro: 'Τέσσερις απλές κατηγορίες, με όλα τα βασικά να περιλαμβάνονται στην ημερήσια τιμή.',

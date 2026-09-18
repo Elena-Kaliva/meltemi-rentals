@@ -150,6 +150,7 @@ export function Pricing({ t }) {
               <CostRow included><span>{p.secondDriver}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
               <CostRow included><span>{p.fullFuel}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
               <CostRow included><span>{p.held}</span><strong className="shrink-0 text-aegean">€0</strong></CostRow>
+              <CostRow included><span>{p.support}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
             </div>
             <p className="mt-4 text-[11px] leading-5 text-stone-600">{p.meltemiNote}</p>
           </article>
