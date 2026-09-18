@@ -93,8 +93,6 @@ export default function App() {
             </div>
 
             <div className="flex flex-col items-end gap-8 text-right">
-              <a className="inline-flex min-h-12 w-fit items-center justify-center gap-3 rounded-full bg-white px-5 text-sm font-extrabold text-ink transition-[background-color,color] duration-300 hover:bg-aegean hover:text-white" href="#request">{t.nav.cta}<span aria-hidden="true">↗</span></a>
-
               <div className="flex flex-col items-end gap-6">
                 <div>
                   <p className="text-[10px] font-extrabold uppercase tracking-[.12em] text-white/45">{t.footer.location}</p>
@@ -105,10 +103,6 @@ export default function App() {
                   <a className="py-1 transition-colors hover:text-white" href="#included">{t.nav.included}</a>
                   <a className="py-1 transition-colors hover:text-white" href="#faq">{t.nav.faq}</a>
                 </nav>
-                <a className="group flex w-fit items-center gap-3 text-sm font-bold text-white/65 transition-colors hover:text-white" href="#top">
-                  {t.footer.backToTop}
-                  <span className="grid h-9 w-9 place-items-center rounded-full border border-white/20 transition-[background-color,color] group-hover:bg-white group-hover:text-ink" aria-hidden="true">↑</span>
-                </a>
               </div>
 
               <p className="w-full border-t border-white/10 pt-6 text-xs text-white/40">{t.footer.descriptor}</p>

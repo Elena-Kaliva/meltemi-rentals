@@ -89,7 +89,7 @@ export const translations = {
         ['How does the fuel policy work?', 'Full-to-full: you receive the car full and return it full.'],
       ],
     },
-    footer: { location: 'Kos, Greece', tagline: 'Your time in Kos should feel this simple.', navigationLabel: 'Footer navigation', backToTop: 'Back to top', descriptor: 'Car rental in Kos', rights: 'Meltemi Rentals. All rights reserved.' },
+    footer: { location: 'Kos, Greece', tagline: 'Your time in Kos should feel this simple.', navigationLabel: 'Footer navigation', descriptor: 'Car rental in Kos', rights: 'Meltemi Rentals. All rights reserved.' },
     sticky: { label: 'All-inclusive from', cta: 'Check dates' },
   },
   el: {
@@ -167,7 +167,7 @@ export const translations = {
       },
     },
     faq: { eyebrow: 'Όλα ξεκάθαρα, χωρίς ψιλά γράμματα', title: 'Απαντήσεις στις πιο συχνές ερωτήσεις.', items: [['Περιλαμβάνεται πλήρης ασφάλιση;', 'Ναι. Η πλήρης ασφάλιση χωρίς απαλλαγή περιλαμβάνεται στην τιμή.'], ['Θα γίνει δέσμευση ποσού στην πιστωτική μου κάρτα;', 'Όχι. Δεν γίνεται καμία δέσμευση ποσού στην πιστωτική σου κάρτα.'], ['Υπάρχει επιπλέον χρέωση για την παραλαβή στο αεροδρόμιο;', 'Όχι. Η παραλαβή και η επιστροφή στο αεροδρόμιο της Κω περιλαμβάνονται στην τιμή.'], ['Πώς λειτουργεί η πολιτική καυσίμων;', 'Ισχύει η πολιτική γεμάτο-γεμάτο: παραλαμβάνεις το αυτοκίνητο με γεμάτο ρεζερβουάρ και το επιστρέφεις γεμάτο.']] },
-    footer: { location: 'Κως, Ελλάδα', tagline: 'Οι διαδρομές σου στην Κω, όπως πρέπει να είναι: απλές.', navigationLabel: 'Πλοήγηση υποσέλιδου', backToTop: 'Πίσω στην αρχή', descriptor: 'Ενοικίαση αυτοκινήτου στην Κω', rights: 'Meltemi Rentals. Όλα τα δικαιώματα διατηρούνται.' },
+    footer: { location: 'Κως, Ελλάδα', tagline: 'Οι διαδρομές σου στην Κω, όπως πρέπει να είναι: απλές.', navigationLabel: 'Πλοήγηση υποσέλιδου', descriptor: 'Ενοικίαση αυτοκινήτου στην Κω', rights: 'Meltemi Rentals. Όλα τα δικαιώματα διατηρούνται.' },
     sticky: { label: 'Όλα τα βασικά από', cta: 'Δες ημερομηνίες' },
   },
 }
