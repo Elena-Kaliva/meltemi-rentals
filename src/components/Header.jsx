@@ -15,7 +15,6 @@ export default function Header({ language, setLanguage, t }) {
           <div className="hidden items-center gap-6 text-[13px] text-stone-600 md:flex">
             <a className="nav-link" href="#fleet">{t.nav.cars}</a>
             <a className="nav-link" href="#included">{t.nav.included}</a>
-            <a className="nav-link" href="#faq">{t.nav.faq}</a>
           </div>
           <div className="flex rounded-full border border-stone-300/80 bg-stone-200/60 p-0.5 shadow-inner" role="group" aria-label={t.nav.label}>
             {['en', 'el'].map((code) => (

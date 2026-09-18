@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Header, { Brand } from './components/Header'
-import { Booking, FAQ, Fleet, Hero, MobileShowcase, Pricing } from './components/PageSections'
+import { Booking, Fleet, Hero, MobileShowcase, Pricing } from './components/PageSections'
 import { translations } from './content/translations'
 import { cars } from './data/cars'
 import { bookingFieldIds, firstIncompleteBookingField, updateBookingSelection } from './lib/bookingForm'
@@ -78,7 +78,6 @@ export default function App() {
           onResetSelection={() => setBookingSelection(initialBookingSelection)}
           language={language}
         />
-        <FAQ t={t} />
       </main>
       <footer className="relative overflow-hidden bg-[#101827] pb-28 text-white sm:pb-0">
         <span className="pointer-events-none absolute -right-40 -top-56 h-[34rem] w-[34rem] rounded-full bg-aegean/25 blur-[120px]" aria-hidden="true" />
@@ -103,7 +102,6 @@ export default function App() {
                 <nav className="flex flex-col items-end gap-2 text-sm text-white/65" aria-label={t.footer.navigationLabel}>
                   <a className="py-1 transition-colors hover:text-white" href="#fleet">{t.nav.cars}</a>
                   <a className="py-1 transition-colors hover:text-white" href="#included">{t.nav.included}</a>
-                  <a className="py-1 transition-colors hover:text-white" href="#faq">{t.nav.faq}</a>
                 </nav>
               </div>
 

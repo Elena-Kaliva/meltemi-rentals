@@ -350,28 +350,3 @@ export function Booking({ t, cars, selection, onSelectionChange, onResetSelectio
     </section>
   )
 }
-
-export function FAQ({ t }) {
-  return (
-    <section className="section-pad scroll-mt-24 border-y border-stone-300/50 bg-white/40 pt-2 sm:pt-6" id="faq">
-      <div className="page-wrap grid gap-9 lg:grid-cols-[.68fr_1.32fr] lg:gap-20">
-        <div className="lg:sticky lg:top-28 lg:self-start">
-          <SectionMarker number="05" label={t.faq.eyebrow} />
-          <h2 className="mt-6 max-w-xl text-[clamp(2.55rem,4.5vw,4rem)] font-black leading-[.94] tracking-[-.064em]">{t.faq.title}</h2>
-        </div>
-        <div className="space-y-2.5">
-          {t.faq.items.map(([question, answer], index) => (
-            <details className="group overflow-hidden rounded-[1.35rem] border border-stone-200/80 bg-white shadow-[0_8px_28px_rgba(23,24,23,.05)] transition-[border-color,background-color,box-shadow] open:border-aegean/20 open:shadow-[0_16px_40px_rgba(23,24,23,.09)]" key={question} name="faq">
-              <summary className="flex w-full cursor-pointer list-none items-center gap-4 p-5 font-bold marker:hidden sm:p-6">
-                <span className="text-[10px] font-black tabular-nums text-stone-400">0{index + 1}</span>
-                <span className="flex-1">{question}</span>
-                <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-aegean/15 bg-aegean/[.07] text-aegean transition-[transform,background-color,color] group-hover:bg-aegean group-hover:text-white group-open:rotate-45" aria-hidden="true">+</span>
-              </summary>
-              <p className="-mt-2 pb-6 pl-[4.25rem] pr-6 text-sm leading-7 text-stone-600">{answer}</p>
-            </details>
-          ))}
-        </div>
-      </div>
-    </section>
-  )
-}

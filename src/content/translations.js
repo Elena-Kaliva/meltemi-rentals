@@ -5,7 +5,7 @@ export const translations = {
       description: 'Worry-free car rental in Kos from €35/day, with full insurance, airport handover, second driver and 24/7 support included.',
     },
     topbar: ['Kos Airport pickup & return included', '24/7 local support throughout your rental'],
-    nav: { cars: 'Cars', included: 'What’s included', faq: 'FAQ', cta: 'Check availability', label: 'Choose language' },
+    nav: { cars: 'Cars', included: 'What’s included', cta: 'Check availability', label: 'Choose language' },
     hero: {
       eyebrow: 'Car rental in Kos, Greece',
       title1: 'Your car in Kos.', title2: 'One clear price.', title3: 'Nothing to worry about.',
@@ -79,15 +79,6 @@ export const translations = {
         networkError: 'We could not reach the booking service. Check your connection and try again.',
       },
     },
-    faq: {
-      eyebrow: 'No small-print anxiety', title: 'Questions worth answering upfront.',
-      items: [
-        ['Is full insurance included?', 'Yes — full insurance with zero excess is included in the stated rate.'],
-        ['Will money be blocked on my credit card?', 'No. No amount is held on your credit card.'],
-        ['Is airport delivery an extra fee?', 'No — pickup and return at Kos Airport are included.'],
-        ['How does the fuel policy work?', 'Full-to-full: you receive the car full and return it full.'],
-      ],
-    },
     footer: { location: 'Kos, Greece', tagline: 'Your time in Kos should feel this simple.', navigationLabel: 'Footer navigation', descriptor: 'Car rental in Kos', rights: 'Meltemi Rentals. All rights reserved.' },
     sticky: { label: 'All-inclusive from', cta: 'Check dates' },
   },
@@ -97,7 +88,7 @@ export const translations = {
       description: 'Ξέγνοιαστη ενοικίαση αυτοκινήτου στην Κω από 35€ την ημέρα, με πλήρη ασφάλιση, παραλαβή και επιστροφή στο αεροδρόμιο, δεύτερο οδηγό και υποστήριξη 24/7.',
     },
     topbar: ['Παραλαβή & επιστροφή στο αεροδρόμιο της Κω', 'Τοπική υποστήριξη 24/7 σε όλη τη διάρκεια της ενοικίασης'],
-    nav: { cars: 'Αυτοκίνητα', included: 'Τι περιλαμβάνεται', faq: 'Συχνές ερωτήσεις', cta: 'Έλεγξε διαθεσιμότητα', label: 'Επιλογή γλώσσας' },
+    nav: { cars: 'Αυτοκίνητα', included: 'Τι περιλαμβάνεται', cta: 'Έλεγξε διαθεσιμότητα', label: 'Επιλογή γλώσσας' },
     hero: {
       eyebrow: 'Meltemi Rentals · Κως',
       title1: 'Νοίκιασε αυτοκίνητο', title2: 'στην Κω', title3: 'χωρίς εκπλήξεις.',
@@ -165,7 +156,6 @@ export const translations = {
         networkError: 'Δεν μπορέσαμε να συνδεθούμε με την υπηρεσία κρατήσεων. Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά.',
       },
     },
-    faq: { eyebrow: 'Όλα ξεκάθαρα, χωρίς ψιλά γράμματα', title: 'Απαντήσεις στις πιο συχνές ερωτήσεις.', items: [['Περιλαμβάνεται πλήρης ασφάλιση;', 'Ναι. Η πλήρης ασφάλιση χωρίς απαλλαγή περιλαμβάνεται στην τιμή.'], ['Θα γίνει δέσμευση ποσού στην πιστωτική μου κάρτα;', 'Όχι. Δεν γίνεται καμία δέσμευση ποσού στην πιστωτική σου κάρτα.'], ['Υπάρχει επιπλέον χρέωση για την παραλαβή στο αεροδρόμιο;', 'Όχι. Η παραλαβή και η επιστροφή στο αεροδρόμιο της Κω περιλαμβάνονται στην τιμή.'], ['Πώς λειτουργεί η πολιτική καυσίμων;', 'Ισχύει η πολιτική γεμάτο-γεμάτο: παραλαμβάνεις το αυτοκίνητο με γεμάτο ρεζερβουάρ και το επιστρέφεις γεμάτο.']] },
     footer: { location: 'Κως, Ελλάδα', tagline: 'Οι διαδρομές σου στην Κω, όπως πρέπει να είναι: απλές.', navigationLabel: 'Πλοήγηση υποσέλιδου', descriptor: 'Ενοικίαση αυτοκινήτου στην Κω', rights: 'Meltemi Rentals. Όλα τα δικαιώματα διατηρούνται.' },
     sticky: { label: 'Όλα τα βασικά από', cta: 'Δες ημερομηνίες' },
   },
