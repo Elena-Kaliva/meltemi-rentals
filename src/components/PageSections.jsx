@@ -219,7 +219,7 @@ export function Fleet({ t, cars, onRequest }) {
 
 // Each mobile.facts entry is paired by position with a kind here, so the icon
 // tracks the concept (not the raw index) as the list grows.
-const MOBILE_FACT_KINDS = ['insurance', 'cardHold', 'airport', 'driver', 'fuel', 'support', 'mileage']
+const MOBILE_FACT_KINDS = ['insurance', 'cardHold', 'airport', 'driver', 'fuel', 'support']
 
 function MobileFactIcon({ kind }) {
   const commonProps = { className: 'h-5 w-5 sm:h-6 sm:w-6', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.8', strokeLinecap: 'round', strokeLinejoin: 'round' }
@@ -239,9 +239,6 @@ function MobileFactIcon({ kind }) {
   if (kind === 'fuel') {
     return <svg {...commonProps} aria-hidden="true"><rect x="5.5" y="6" width="7.5" height="14" rx="1" /><path d="M7.5 9.5h3.5" /><path d="M13 9.5h1.8L17.5 12v4.7a1.3 1.3 0 0 1-2.6 0v-2.9a1 1 0 0 0-1-1H13" /><path d="M4 20h11" /></svg>
   }
-  if (kind === 'mileage') {
-    return <svg {...commonProps} aria-hidden="true"><path d="M4.5 15a7.5 7.5 0 1 1 15 0" /><path d="M12 15 15 10.5" /><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none" /></svg>
-  }
   return <svg {...commonProps} aria-hidden="true"><path d="M4.5 13v-1a7.5 7.5 0 0 1 15 0v1" /><path d="M4.5 12.5h1.2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H5a1.5 1.5 0 0 1-1.5-1.5v-3.5A1 1 0 0 1 4.5 12.5ZM19.5 12.5h-1.2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h.7a1.5 1.5 0 0 0 1.5-1.5v-3.5a1 1 0 0 0-1-1Z" /><path d="M16.3 18.5c-.7 1.3-2.1 2-4.3 2" /></svg>
 }
 
@@ -253,7 +250,6 @@ export function MobileShowcase({ t }) {
     'lg:right-[9%] lg:top-[45%]',
     'lg:left-[2%] lg:top-[78%]',
     'lg:right-[2%] lg:top-[78%]',
-    'lg:right-[5%] lg:top-[61%]',
   ]
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
