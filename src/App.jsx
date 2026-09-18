@@ -94,9 +94,9 @@ export default function App() {
 
             <div className="flex flex-col items-end gap-8 text-right">
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10">
-                <div>
-                  <p className="text-[10px] font-extrabold uppercase tracking-[.12em] text-white/45">{t.footer.location}</p>
-                  <a className="mt-2 inline-block text-lg font-bold transition-colors hover:text-blue-300" href="mailto:hello@meltemirentals.gr">hello@meltemirentals.gr</a>
+                <div className="flex flex-col items-end gap-2 text-sm text-white/65">
+                  <p className="py-1 text-[10px] font-extrabold uppercase tracking-[.12em] text-white/45">{t.footer.location}</p>
+                  <a className="py-1 transition-colors hover:text-white" href="mailto:hello@meltemirentals.gr">hello@meltemirentals.gr</a>
                 </div>
                 <nav className="flex flex-col items-end gap-2 text-sm text-white/65" aria-label={t.footer.navigationLabel}>
                   <a className="py-1 transition-colors hover:text-white" href="#fleet">{t.nav.cars}</a>
