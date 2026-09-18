@@ -122,7 +122,7 @@
     visibility: hidden;
   }
   .mobile-fact-visible {
-    animation: mobile-fact-pop 1.05s var(--fact-delay) cubic-bezier(.22,1,.36,1) both;
+    animation: mobile-fact-pop 1.05s cubic-bezier(.22,1,.36,1) both;
     will-change: opacity, transform;
   }
   .mobile-fact::before {

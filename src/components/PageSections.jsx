@@ -256,27 +256,53 @@ export function MobileShowcase({ t }) {
     'left-0 top-[20.5rem] sm:top-[81%] lg:left-[2%] lg:top-[78%]',
     'right-0 top-[20.5rem] sm:top-[81%] lg:right-[2%] lg:top-[78%]',
   ]
-  const sectionRef = useRef(null)
-  const [isVisible, setIsVisible] = useState(false)
+  const factStageRef = useRef(null)
+  const [visibleFactCount, setVisibleFactCount] = useState(0)
 
   useEffect(() => {
-    if (!sectionRef.current || !('IntersectionObserver' in window)) {
-      setIsVisible(true)
+    const stage = factStageRef.current
+    if (!stage) {
       return undefined
     }
 
-    const observer = new window.IntersectionObserver(([entry]) => {
-      if (!entry.isIntersecting) return
-      setIsVisible(true)
-      observer.disconnect()
-    }, { threshold: 0.2 })
+    const factCount = MOBILE_FACT_KINDS.length
+    let frameId = 0
 
-    observer.observe(sectionRef.current)
-    return () => observer.disconnect()
+    const updateVisibleFacts = () => {
+      frameId = 0
+      const rect = stage.getBoundingClientRect()
+      const viewportHeight = window.innerHeight
+
+      if (rect.top >= viewportHeight) return
+
+      // Spread the six reveals across roughly one viewport of scrolling. This
+      // keeps neighbouring cards distinct while still revealing everything
+      // before the visitor leaves the showcase.
+      const revealDistance = Math.max(1, rect.height * 1.15, viewportHeight * 1.1)
+      const progress = Math.min(1, Math.max(0, (viewportHeight - rect.top) / revealDistance))
+      const nextCount = Math.min(factCount, Math.ceil(progress * factCount))
+
+      setVisibleFactCount((currentCount) => Math.max(currentCount, nextCount))
+    }
+
+    const scheduleUpdate = () => {
+      if (frameId) return
+      frameId = window.requestAnimationFrame(updateVisibleFacts)
+    }
+
+    updateVisibleFacts()
+    window.addEventListener('scroll', scheduleUpdate, { passive: true })
+    window.addEventListener('resize', scheduleUpdate)
+
+    return () => {
+      window.removeEventListener('scroll', scheduleUpdate)
+      window.removeEventListener('resize', scheduleUpdate)
+      if (frameId) window.cancelAnimationFrame(frameId)
+    }
   }, [])
 
   return (
-    <section className="scroll-mt-24" id="mobile-experience" ref={sectionRef}>
+    <section className="scroll-mt-24" id="mobile-experience">
       <div className="relative overflow-hidden bg-gradient-to-br from-[#2f69b9] via-aegean to-[#204a84] py-12 text-white sm:py-16">
         <span className="pointer-events-none absolute -left-40 top-1/3 h-[28rem] w-[28rem] rounded-full bg-white/[.06] blur-[100px]" aria-hidden="true" />
         <span className="pointer-events-none absolute -right-44 -top-48 h-[32rem] w-[32rem] rounded-full bg-blue-300/15 blur-[110px]" aria-hidden="true" />
@@ -286,7 +312,7 @@ export function MobileShowcase({ t }) {
           <h2 className="mt-6 text-[clamp(2.5rem,5vw,4.25rem)] font-extrabold leading-[.94] tracking-[-.064em]">{t.mobile.title}</h2>
           <p className="mx-auto mt-5 max-w-2xl leading-7 text-white/80">{t.mobile.body}</p>
           </div>
-          <div className="relative left-1/2 mx-auto mt-8 min-h-[29rem] w-screen max-w-6xl -translate-x-1/2 px-2 sm:left-auto sm:min-h-[44rem] sm:w-auto sm:translate-x-0 sm:px-0">
+          <div className="relative left-1/2 mx-auto mt-8 min-h-[29rem] w-screen max-w-6xl -translate-x-1/2 px-2 sm:left-auto sm:min-h-[44rem] sm:w-auto sm:translate-x-0 sm:px-0" ref={factStageRef}>
           <span className="pointer-events-none absolute left-1/2 top-[48%] hidden text-[11rem] font-black leading-none tracking-[-.09em] text-white/[.045] lg:block lg:-translate-x-1/2 lg:-translate-y-1/2" aria-hidden="true">KOS</span>
           <span className="pointer-events-none absolute left-1/2 top-[48%] hidden h-[39rem] w-[39rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 lg:block" aria-hidden="true" />
           <span className="pointer-events-none absolute left-1/2 top-[48%] hidden h-[29rem] w-[29rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[.07] lg:block" aria-hidden="true" />
@@ -309,9 +335,9 @@ export function MobileShowcase({ t }) {
           <div className="absolute inset-0 z-10" aria-label={t.mobile.factsLabel}>
             {t.mobile.facts.map(([label, value], index) => (
               <div
-                className={`mobile-fact absolute flex w-32 items-center gap-1.5 overflow-hidden rounded-[1rem] border border-white/20 bg-[#143d75]/90 p-1.5 text-white shadow-[0_22px_55px_rgba(5,25,56,.32)] backdrop-blur-xl sm:w-[14rem] sm:gap-3 sm:rounded-full sm:p-3 sm:pr-4 lg:w-[17rem] lg:gap-4 ${index % 2 === 1 ? 'flex-row-reverse text-right sm:flex-row sm:text-left' : ''} ${isVisible ? 'mobile-fact-visible' : ''} ${factPositions[index]}`}
+                className={`mobile-fact absolute flex w-32 items-center gap-1.5 overflow-hidden rounded-[1rem] border border-white/20 bg-[#143d75]/90 p-1.5 text-white shadow-[0_22px_55px_rgba(5,25,56,.32)] backdrop-blur-xl sm:w-[14rem] sm:gap-3 sm:rounded-full sm:p-3 sm:pr-4 lg:w-[17rem] lg:gap-4 ${index % 2 === 1 ? 'flex-row-reverse text-right sm:flex-row sm:text-left' : ''} ${index < visibleFactCount ? 'mobile-fact-visible' : ''} ${factPositions[index]}`}
                 key={label}
-                style={{ '--fact-delay': `${250 + index * 700}ms`, '--fact-x': index % 2 === 0 ? '-90px' : '90px', '--border-delay': `${index * -1.15}s` }}
+                style={{ '--fact-x': index % 2 === 0 ? '-90px' : '90px', '--border-delay': `${index * -1.15}s` }}
               >
                 <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white text-aegean shadow-[0_8px_20px_rgba(0,0,0,.16)] sm:h-12 sm:w-12 lg:h-16 lg:w-16" aria-hidden="true"><MobileFactIcon kind={MOBILE_FACT_KINDS[index]} /></span>
                 <span className="min-w-0">
