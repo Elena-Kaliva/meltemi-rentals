@@ -53,7 +53,7 @@
 
 @layer components {
   .page-wrap { @apply mx-auto w-[calc(100%-1.5rem)] max-w-[73.75rem] sm:w-[calc(100%-2.5rem)]; }
-  .button-primary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-transparent bg-ink px-5 text-sm font-extrabold text-white shadow-[0_8px_20px_rgba(23,24,23,.12)] transition-[background-color,box-shadow] duration-300 hover:bg-aegean hover:shadow-[0_14px_34px_rgba(43,95,169,.22)]; }
+  .button-primary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-transparent bg-aegean px-5 text-sm font-extrabold text-white shadow-[0_8px_20px_rgba(43,95,169,.18)] transition-[background-color,box-shadow] duration-300 hover:bg-aegean-dark hover:shadow-[0_14px_34px_rgba(43,95,169,.28)]; }
   .button-secondary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-stone-300 bg-white px-5 text-sm font-extrabold text-ink shadow-[0_6px_18px_rgba(23,24,23,.06)] transition-[border-color,background-color,box-shadow] duration-300 hover:border-aegean/30 hover:bg-aegean-soft hover:shadow-[0_10px_24px_rgba(43,95,169,.1)]; }
   .nav-link { @apply rounded-full px-3 py-2 font-medium transition-colors hover:bg-ink/[.045] hover:text-ink; }
   .section-pad { @apply py-14 sm:py-20; }

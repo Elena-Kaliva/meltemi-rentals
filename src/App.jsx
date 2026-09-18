@@ -114,7 +114,7 @@ export default function App() {
         </div>
       </footer>
       <a
-        className={`fixed inset-x-2.5 bottom-2.5 z-50 min-h-16 items-center justify-between rounded-full border border-white/10 bg-ink/95 px-5 text-white shadow-[0_18px_46px_rgba(0,0,0,.3)] backdrop-blur-xl sm:hidden ${showMobileCta ? 'flex' : 'hidden'}`}
+        className={`fixed inset-x-2.5 bottom-2.5 z-50 min-h-16 items-center justify-between rounded-full border border-white/10 bg-aegean/95 px-5 text-white shadow-[0_18px_46px_rgba(20,40,80,.35)] backdrop-blur-xl sm:hidden ${showMobileCta ? 'flex' : 'hidden'}`}
         href="#request"
         onClick={(event) => { event.preventDefault(); goToBooking() }}
       >

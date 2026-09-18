@@ -76,7 +76,7 @@ export function Hero({ t, cars, selection, onSelectionChange, onCheckAvailabilit
                 {cars.map((car) => <option value={car.id} key={car.id}>{car.name}</option>)}
               </select>
             </label>
-            <button className="group col-span-2 min-h-14 bg-ink px-6 text-sm font-extrabold text-white transition-colors hover:bg-black lg:col-span-1 lg:min-h-full" type="submit">{t.hero.availability.submit}<span className="ml-2 inline-block transition-transform group-hover:translate-x-1" aria-hidden="true">→</span></button>
+            <button className="group col-span-2 min-h-14 bg-aegean px-6 text-sm font-extrabold text-white transition-colors hover:bg-aegean-dark lg:col-span-1 lg:min-h-full" type="submit">{t.hero.availability.submit}<span className="ml-2 inline-block transition-transform group-hover:translate-x-1" aria-hidden="true">→</span></button>
           </form>
         </div>
       </div>
@@ -276,7 +276,7 @@ export function MobileShowcase({ t }) {
               <div className="grid grid-cols-2 gap-2 px-3.5 py-2.5">
                 {t.mobile.previewItems.map(([label, value]) => <div className="rounded-xl bg-white p-2.5 text-[9px]" key={label}><span>{label}</span><b className="mt-0.5 block text-[11px]">{value}</b></div>)}
               </div>
-              <div className="mx-3.5 grid h-10 place-items-center rounded-full bg-ink text-[11px] font-extrabold text-white">{t.mobile.previewCta} →</div>
+              <div className="mx-3.5 grid h-10 place-items-center rounded-full bg-aegean text-[11px] font-extrabold text-white">{t.mobile.previewCta} →</div>
             </div>
           </div>
           <div className="relative z-20 mt-6 grid grid-cols-2 gap-2.5 lg:absolute lg:inset-0 lg:mt-0 lg:block" aria-label={t.mobile.factsLabel}>
