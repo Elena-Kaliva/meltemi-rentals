@@ -30,7 +30,7 @@ export const translations = {
     },
     fleet: {
       eyebrow: 'Choose your car', title: 'A practical car for the trip you have in mind.', intro: 'Four straightforward categories, with the essentials included in every daily rate.',
-      similar: 'or similar', day: '/ day', seats: 'seats', bag: 'bag', bags: 'bags', manual: 'Manual', ac: 'A/C', request: 'Request',
+      similar: 'or similar', from: 'From', day: '/ day', seats: 'seats', bag: 'bag', bags: 'bags', manual: 'Manual', ac: 'A/C', request: 'Request',
       alt: (name) => `White ${name.toLowerCase()} rental car shown from the front`,
     },
     mobile: {
@@ -119,7 +119,7 @@ export const translations = {
     },
     fleet: {
       eyebrow: 'Επίλεξε αυτοκίνητο', title: 'Βρες το αυτοκίνητο που ταιριάζει στο ταξίδι σου.', intro: 'Τέσσερις απλές κατηγορίες, με όλα τα βασικά να περιλαμβάνονται στην ημερήσια τιμή.',
-      similar: 'ή παρόμοιο', day: '/ ημέρα', seats: 'θέσεις', bag: 'βαλίτσα', bags: 'βαλίτσες', manual: 'Χειροκίνητο', ac: 'A/C', request: 'Ζήτησε', alt: (name) => `Λευκό ενοικιαζόμενο αυτοκίνητο κατηγορίας ${name} σε μπροστινή όψη`,
+      similar: 'ή παρόμοιο', from: 'Από', day: '/ ημέρα', seats: 'θέσεις', bag: 'βαλίτσα', bags: 'βαλίτσες', manual: 'Χειροκίνητο', ac: 'A/C', request: 'Ζήτησε', alt: (name) => `Λευκό ενοικιαζόμενο αυτοκίνητο κατηγορίας ${name} σε μπροστινή όψη`,
     },
     mobile: {
       title: 'Όλα όσα χρειάζεσαι. Ξεκάθαρα από την αρχή.',

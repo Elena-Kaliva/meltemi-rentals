@@ -163,6 +163,14 @@ export function Pricing({ t }) {
   )
 }
 
+function FleetSpecIcon({ type, value }) {
+  const common = { className: 'h-5 w-5', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.8', strokeLinecap: 'round', strokeLinejoin: 'round' }
+  if (type === 'seats') return <svg {...common} aria-hidden="true"><circle cx="12" cy="7.2" r="3.2" /><path d="M5.3 20c0-3.7 3-6.7 6.7-6.7s6.7 3 6.7 6.7" /></svg>
+  if (type === 'bags') return <svg {...common} aria-hidden="true"><rect x="5" y="8.5" width="14" height="11.5" rx="2.2" /><path d="M9 8.5v-2a3 3 0 0 1 6 0v2" /></svg>
+  if (value === 'manual') return <svg {...common} aria-hidden="true"><circle cx="12" cy="5" r="1.6" /><path d="M12 6.6V14" /><path d="M6 20h12M8 20v-3.5a4 4 0 0 1 4-4 4 4 0 0 1 4 4V20" /></svg>
+  return <svg {...common} aria-hidden="true"><path d="M12 3v18M4.6 6.5l14.8 11M19.4 6.5 4.6 17.5" /></svg>
+}
+
 export function Fleet({ t, cars, onRequest }) {
   return (
     <section className="section-pad scroll-mt-24 border-y border-stone-300/50 bg-white/30" id="fleet">
@@ -175,19 +183,29 @@ export function Fleet({ t, cars, onRequest }) {
         <div className="fleet-scroll mt-10">
           {cars.map((car) => (
             <article className="fleet-card group relative flex min-w-[84%] snap-start flex-col overflow-hidden rounded-[1.5rem] border border-stone-200/90 bg-white shadow-[0_8px_28px_rgba(23,24,23,.05)] transition-[box-shadow,border-color] duration-500 hover:border-transparent hover:shadow-[0_16px_42px_rgba(23,24,23,.09)] sm:min-w-0" key={car.id}>
-              <div className="relative aspect-[4/3] overflow-hidden bg-[#e7eaec]">
+              <p className="px-5 pt-5 text-sm text-stone-500">{t.fleet.from} <strong className="text-lg font-black text-ink">€{car.price}</strong> {t.fleet.day}</p>
+              <div className="relative aspect-[4/3] overflow-hidden">
                 <span className="absolute inset-x-[18%] bottom-[12%] h-[10%] rounded-full bg-slate-900/10 blur-xl" aria-hidden="true" />
                 <img className="fleet-car-image relative h-full w-full object-contain p-2 sm:p-3" src={car.image} alt={t.fleet.alt(car.name)} width="720" height="480" loading="lazy" decoding="async" />
               </div>
-              <div className="flex flex-1 flex-col p-5">
-                <div className="flex items-start justify-between gap-3">
-                  <div><h3 className="text-xl font-black tracking-tight">{car.name}</h3><p className="mt-1 text-xs text-stone-500">{car.example} {t.fleet.similar}</p></div>
-                  <p className="shrink-0 text-right text-xl font-black text-aegean">€{car.price}<span className="block text-[10px] font-medium text-stone-500">{t.fleet.day}</span></p>
+              <div className="flex flex-1 flex-col p-5 pt-0">
+                <h3 className="text-xl font-black tracking-tight">{car.name}</h3>
+                <p className="mt-1 text-xs text-stone-500">{car.example} {t.fleet.similar}</p>
+                <div className="mt-5 grid grid-cols-3 gap-2 text-center">
+                  <div className="flex flex-col items-center gap-1.5">
+                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-stone-100 text-stone-600" aria-hidden="true"><FleetSpecIcon type="seats" /></span>
+                    <span className="text-[11px] text-stone-600">{car.seats} {t.fleet.seats}</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-1.5">
+                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-stone-100 text-stone-600" aria-hidden="true"><FleetSpecIcon type="bags" /></span>
+                    <span className="text-[11px] text-stone-600">{car.bags} {car.bags === 1 ? t.fleet.bag : t.fleet.bags}</span>
+                  </div>
+                  <div className="flex flex-col items-center gap-1.5">
+                    <span className="grid h-10 w-10 place-items-center rounded-xl bg-stone-100 text-stone-600" aria-hidden="true"><FleetSpecIcon type="transmission" value={car.transmission} /></span>
+                    <span className="text-[11px] text-stone-600">{t.fleet[car.transmission]}</span>
+                  </div>
                 </div>
-                <div className="my-5 flex flex-wrap gap-2 text-[11px] text-stone-600">
-                  <span className="car-meta">{car.seats} {t.fleet.seats}</span><span className="car-meta">{car.bags} {car.bags === 1 ? t.fleet.bag : t.fleet.bags}</span><span className="car-meta">{t.fleet[car.transmission]}</span>
-                </div>
-                <button className="mt-auto flex w-full items-center justify-between border-t border-stone-200 pt-4 text-left text-sm font-extrabold transition-colors hover:text-aegean" type="button" onClick={() => onRequest(car.id)}><span>{t.fleet.request} {car.name}</span><span className="grid h-8 w-8 place-items-center rounded-full bg-stone-100 text-lg transition-[transform,background-color] group-hover:translate-x-1 group-hover:bg-aegean group-hover:text-white" aria-hidden="true">→</span></button>
+                <button className="mt-5 flex w-full items-center justify-between border-t border-stone-200 pt-4 text-left text-sm font-extrabold transition-colors hover:text-aegean" type="button" onClick={() => onRequest(car.id)}><span>{t.fleet.request} {car.name}</span><span className="grid h-8 w-8 place-items-center rounded-full bg-stone-100 text-lg transition-[transform,background-color] group-hover:translate-x-1 group-hover:bg-aegean group-hover:text-white" aria-hidden="true">→</span></button>
               </div>
             </article>
           ))}
