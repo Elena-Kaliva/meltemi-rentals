@@ -115,7 +115,7 @@ export function Pricing({ t }) {
         <span className="pointer-events-none absolute -bottom-52 -left-40 h-[30rem] w-[30rem] rounded-full bg-slate-400/10 blur-[100px]" aria-hidden="true" />
 
         <div className="page-wrap relative grid gap-4 lg:grid-cols-2 lg:items-stretch lg:gap-5">
-          <article className="group flex min-h-[25rem] flex-col rounded-[1.65rem] border border-white/10 bg-white/[.055] p-4 backdrop-blur-md transition-[border-color,transform] duration-300 hover:border-white/20 sm:p-6 lg:pr-9">
+          <article className="group flex min-h-[25rem] flex-col rounded-[1.65rem] border border-white/10 bg-white/[.055] p-4 backdrop-blur-md transition-[border-color,transform] duration-300 hover:border-white/20 sm:p-6">
             <div className="flex items-center justify-between gap-4">
               <span className="rounded-full bg-white/[.07] px-3 py-2 text-[10px] font-extrabold uppercase tracking-[.07em] text-slate-300">{p.example}</span>
               <span className="text-[10px] font-extrabold uppercase tracking-[.07em] text-slate-400">{p.starts}</span>
@@ -134,11 +134,7 @@ export function Pricing({ t }) {
             <p className="mt-4 text-[11px] leading-5 text-slate-400">{p.exampleNote}</p>
           </article>
 
-          <div className="relative z-20 -my-1 flex items-center justify-center lg:absolute lg:inset-y-0 lg:left-1/2 lg:-translate-x-1/2">
-            <span className="grid h-12 w-12 place-items-center rounded-full border-4 border-[#101827] bg-white text-[10px] font-black tracking-[.08em] text-ink shadow-[0_10px_30px_rgba(0,0,0,.25)]">VS</span>
-          </div>
-
-          <article className="comparison-featured relative flex min-h-[25rem] flex-col overflow-hidden rounded-[1.65rem] bg-[#f7f7f4] p-4 text-ink shadow-[0_26px_65px_rgba(0,0,0,.28)] sm:p-6 lg:pl-9">
+          <article className="comparison-featured relative flex min-h-[25rem] flex-col overflow-hidden rounded-[1.65rem] bg-[#f7f7f4] p-4 text-ink shadow-[0_26px_65px_rgba(0,0,0,.28)] sm:p-6">
             <span className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-blue-300 via-aegean to-blue-300" aria-hidden="true" />
             <div className="flex items-center justify-between gap-4">
               <span className="rounded-full bg-aegean px-3 py-2 text-[10px] font-extrabold uppercase tracking-[.07em] text-white">Meltemi Rentals</span>
