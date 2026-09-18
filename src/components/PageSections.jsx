@@ -49,10 +49,13 @@ export function Hero({ t, cars, selection, onSelectionChange, onCheckAvailabilit
               <span className="block">{t.hero.title2}</span>
               <span className="block">{t.hero.title3}</span>
             </h1>
-            <p className="mt-5 max-w-xl text-sm leading-6 text-white/90 sm:mt-6 sm:text-lg sm:leading-8">{t.hero.body}</p>
+            <p className="mt-5 max-w-xl text-sm leading-6 text-white/90 sm:mt-6 sm:text-lg sm:leading-8">
+              <span className="sm:hidden">{t.hero.mobileBody}</span>
+              <span className="hidden sm:inline">{t.hero.body}</span>
+            </p>
             <div className="mt-6 flex flex-col gap-2 min-[420px]:flex-row sm:mt-7">
               <a className="button-primary flex-1 min-[420px]:flex-none" href="#request">{t.nav.cta}<span aria-hidden="true">→</span></a>
-              <a className="button-secondary flex-1 border-transparent bg-white/95 min-[420px]:flex-none" href="#included">{t.hero.secondary}</a>
+              <a className="button-secondary hidden flex-1 border-transparent bg-white/95 sm:inline-flex min-[420px]:flex-none" href="#included">{t.hero.secondary}</a>
             </div>
             <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-xs font-semibold text-white/85 sm:mt-5">
               {t.hero.checks.map((check) => (
@@ -246,12 +249,12 @@ function MobileFactIcon({ kind }) {
 
 export function MobileShowcase({ t }) {
   const factPositions = [
-    '-left-1 top-[5%] lg:left-[2%] lg:top-[12%]',
-    '-right-1 top-[5%] lg:right-[2%] lg:top-[12%]',
-    'left-0 top-[43%] lg:left-[9%] lg:top-[45%]',
-    'right-0 top-[43%] lg:right-[9%] lg:top-[45%]',
-    'left-0 top-[81%] lg:left-[2%] lg:top-[78%]',
-    'right-0 top-[81%] lg:right-[2%] lg:top-[78%]',
+    '-left-1 top-4 sm:top-[5%] lg:left-[2%] lg:top-[12%]',
+    '-right-1 top-4 sm:top-[5%] lg:right-[2%] lg:top-[12%]',
+    'left-0 top-[10.25rem] sm:top-[43%] lg:left-[9%] lg:top-[45%]',
+    'right-0 top-[10.25rem] sm:top-[43%] lg:right-[9%] lg:top-[45%]',
+    'left-0 top-[20.5rem] sm:top-[81%] lg:left-[2%] lg:top-[78%]',
+    'right-0 top-[20.5rem] sm:top-[81%] lg:right-[2%] lg:top-[78%]',
   ]
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)

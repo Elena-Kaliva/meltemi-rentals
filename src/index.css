@@ -30,6 +30,7 @@
     outline: none;
   }
   input[type="date"] {
+    position: relative;
     display: block;
     box-sizing: border-box;
     width: 100%;
@@ -38,8 +39,16 @@
     inline-size: 100%;
     min-inline-size: 0;
     max-inline-size: 100%;
-    appearance: none;
-    -webkit-appearance: none;
+  }
+  input[type="date"]::-webkit-calendar-picker-indicator {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    cursor: pointer;
+    opacity: 0;
   }
   input[type="date"]::-webkit-datetime-edit {
     min-width: 0;
@@ -57,7 +66,8 @@
   .button-secondary { @apply inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-stone-300 bg-white px-5 text-sm font-extrabold text-ink shadow-[0_6px_18px_rgba(23,24,23,.06)] transition-[border-color,background-color,box-shadow] duration-300 hover:border-aegean/30 hover:bg-aegean-soft hover:shadow-[0_10px_24px_rgba(43,95,169,.1)]; }
   .nav-link { @apply rounded-full px-3 py-2 font-medium transition-colors hover:bg-ink/[.045] hover:text-ink; }
   .section-pad { @apply py-14 sm:py-20; }
-  .fleet-scroll { @apply flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 [scrollbar-width:thin] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4; }
+  .fleet-scroll { @apply flex snap-x snap-mandatory gap-4 overflow-x-auto pb-3 [scrollbar-width:none] sm:grid sm:grid-cols-2 sm:overflow-visible lg:grid-cols-4; }
+  .fleet-scroll::-webkit-scrollbar { display: none; }
   .fleet-card::before {
     content: '';
     position: absolute;
