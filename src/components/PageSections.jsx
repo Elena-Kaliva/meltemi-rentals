@@ -212,24 +212,40 @@ export function Fleet({ t, cars, onRequest }) {
   )
 }
 
-function MobileFactIcon({ index }) {
-  const iconClass = 'h-5 w-5 sm:h-6 sm:w-6'
-  const commonProps = { className: iconClass, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.8', strokeLinecap: 'round', strokeLinejoin: 'round' }
+// Each mobile.facts entry is paired by position with a kind here, so the icon
+// tracks the concept (not the raw index) as the list grows.
+const MOBILE_FACT_KINDS = ['insurance', 'cardHold', 'airport', 'driver', 'fuel', 'support']
 
-  if (index === 0) {
-    return <svg {...commonProps} aria-hidden="true"><circle cx="12" cy="12" r="8.5" /><path d="M15.5 8.4a4.5 4.5 0 1 0 0 7.2M7.5 10.5h6M7.5 13.5h5.4" /></svg>
-  }
-  if (index === 1) {
+function MobileFactIcon({ kind }) {
+  const commonProps = { className: 'h-5 w-5 sm:h-6 sm:w-6', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.8', strokeLinecap: 'round', strokeLinejoin: 'round' }
+
+  if (kind === 'insurance') {
     return <svg {...commonProps} aria-hidden="true"><path d="M12 3 5.5 5.7v5.5c0 4.2 2.7 7.8 6.5 9.3 3.8-1.5 6.5-5.1 6.5-9.3V5.7L12 3Z" /><path d="m8.7 11.8 2.1 2.1 4.6-4.8" /></svg>
   }
-  if (index === 2) {
+  if (kind === 'cardHold') {
     return <svg {...commonProps} aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5" /><path d="M3 9h18M7 15h3M15.2 14.8l1.4 1.4 2.7-3" /></svg>
+  }
+  if (kind === 'airport') {
+    return <svg {...commonProps} aria-hidden="true"><path d="M12 21s7-6.7 7-12.2A7 7 0 0 0 5 8.8C5 14.3 12 21 12 21Z" /><circle cx="12" cy="8.7" r="2.4" /></svg>
+  }
+  if (kind === 'driver') {
+    return <svg {...commonProps} aria-hidden="true"><circle cx="8.3" cy="7.8" r="2.6" /><circle cx="16.2" cy="9" r="2.1" /><path d="M3.3 19c0-2.9 2.2-5.1 5-5.1s5 2.2 5 5.1" /><path d="M14.3 14.2c2.3.3 4 2.2 4 4.9" /></svg>
+  }
+  if (kind === 'fuel') {
+    return <svg {...commonProps} aria-hidden="true"><rect x="5.5" y="6" width="7.5" height="14" rx="1" /><path d="M7.5 9.5h3.5" /><path d="M13 9.5h1.8L17.5 12v4.7a1.3 1.3 0 0 1-2.6 0v-2.9a1 1 0 0 0-1-1H13" /><path d="M4 20h11" /></svg>
   }
   return <svg {...commonProps} aria-hidden="true"><path d="M4.5 13v-1a7.5 7.5 0 0 1 15 0v1" /><path d="M4.5 12.5h1.2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H5a1.5 1.5 0 0 1-1.5-1.5v-3.5A1 1 0 0 1 4.5 12.5ZM19.5 12.5h-1.2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h.7a1.5 1.5 0 0 0 1.5-1.5v-3.5a1 1 0 0 0-1-1Z" /><path d="M16.3 18.5c-.7 1.3-2.1 2-4.3 2" /></svg>
 }
 
 export function MobileShowcase({ t }) {
-  const factPositions = ['lg:left-[2%] lg:top-[17%]', 'lg:right-[2%] lg:top-[28%]', 'lg:left-[7%] lg:bottom-[14%]', 'lg:right-[6%] lg:bottom-[8%]']
+  const factPositions = [
+    'lg:left-[2%] lg:top-[10%]',
+    'lg:right-[2%] lg:top-[24%]',
+    'lg:left-[6%] lg:top-[38%]',
+    'lg:right-[4%] lg:top-[52%]',
+    'lg:left-[3%] lg:top-[66%]',
+    'lg:right-[6%] lg:top-[80%]',
+  ]
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
 
@@ -287,7 +303,7 @@ export function MobileShowcase({ t }) {
                 key={label}
                 style={{ '--fact-delay': `${250 + index * 700}ms`, '--fact-x': index % 2 === 0 ? '120px' : '-120px', '--border-delay': `${index * -1.15}s` }}
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-aegean shadow-[0_8px_20px_rgba(0,0,0,.16)] sm:h-12 sm:w-12 lg:h-16 lg:w-16" aria-hidden="true"><MobileFactIcon index={index} /></span>
+                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-aegean shadow-[0_8px_20px_rgba(0,0,0,.16)] sm:h-12 sm:w-12 lg:h-16 lg:w-16" aria-hidden="true"><MobileFactIcon kind={MOBILE_FACT_KINDS[index]} /></span>
                 <span className="min-w-0">
                   <small className="block text-[8px] font-extrabold uppercase tracking-[.09em] text-white/60 sm:text-[9px]">{label}</small>
                   <strong className="mt-0.5 block text-sm font-black tracking-[-.04em] sm:text-lg lg:text-[1.45rem]">{value}</strong>
