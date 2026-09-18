@@ -27,18 +27,21 @@ export default function App() {
   }, [language, t])
 
   useEffect(() => {
-    const visibility = { hero: true, booking: false }
+    const visibility = { hero: true, booking: false, footer: false }
     const observer = new window.IntersectionObserver((entries) => {
       entries.forEach((entry) => {
-        visibility[entry.target.id === 'hero-availability' ? 'hero' : 'booking'] = entry.isIntersecting
+        const key = entry.target.id === 'hero-availability' ? 'hero' : entry.target.id === 'request' ? 'booking' : 'footer'
+        visibility[key] = entry.isIntersecting
       })
-      setShowMobileCta(!visibility.hero && !visibility.booking)
+      setShowMobileCta(!visibility.hero && !visibility.booking && !visibility.footer)
     })
 
     const heroAvailability = document.getElementById('hero-availability')
     const booking = document.getElementById('request')
+    const footer = document.getElementById('site-footer')
     if (heroAvailability) observer.observe(heroAvailability)
     if (booking) observer.observe(booking)
+    if (footer) observer.observe(footer)
     return () => observer.disconnect()
   }, [])
 
@@ -79,36 +82,34 @@ export default function App() {
           language={language}
         />
       </main>
-      <footer className="relative overflow-hidden bg-[#101827] pb-28 text-white sm:pb-0">
+      <footer className="relative overflow-hidden bg-[#101827] text-white" id="site-footer">
         <span className="pointer-events-none absolute -right-40 -top-56 h-[34rem] w-[34rem] rounded-full bg-aegean/25 blur-[120px]" aria-hidden="true" />
         <span className="pointer-events-none absolute -bottom-64 -left-48 h-[32rem] w-[32rem] rounded-full bg-slate-400/10 blur-[110px]" aria-hidden="true" />
 
         <div className="page-wrap relative py-10 sm:py-14">
-          <div className="grid gap-10 pb-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
-            <div>
+          <div className="grid justify-items-center gap-10 pb-10 text-center lg:grid-cols-[1fr_1.2fr] lg:justify-items-stretch lg:gap-16 lg:text-left">
+            <div className="flex flex-col items-center lg:items-start">
               <a className="w-fit rounded text-white" href="#top" aria-label="Meltemi Rentals home"><Brand /></a>
               <h2 className="mt-6 max-w-sm text-[clamp(1.65rem,2.6vw,2.35rem)] font-extrabold leading-[1.08] tracking-[-.04em] [text-wrap:balance]">{t.footer.tagline}</h2>
-              <p className="mt-8 text-xs text-white/40">© {new Date().getFullYear()} {t.footer.rights}</p>
             </div>
 
-            <div className="flex flex-col items-end gap-8 text-right">
-              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10">
-                <div className="flex flex-col items-end gap-2 text-sm text-white/65">
+            <div className="flex flex-col items-center gap-8 text-center lg:items-end lg:text-right">
+              <div className="grid grid-cols-1 justify-items-center gap-6 sm:grid-cols-2 sm:gap-10 lg:justify-items-end">
+                <div className="flex flex-col items-center gap-2 text-sm text-white/65 lg:items-end">
                   <p className="py-1 text-[10px] font-extrabold uppercase tracking-[.12em] text-white/45">{t.footer.location}</p>
                   <p className="py-1">{t.footer.address}</p>
                   <a className="py-1 transition-colors hover:text-white" href="mailto:hello@meltemirentals.gr">hello@meltemirentals.gr</a>
                   {/* TODO: placeholder number — replace with the real contact line */}
                   <a className="py-1 transition-colors hover:text-white" href="tel:+302242000000">+30 22420 00000</a>
                 </div>
-                <nav className="flex flex-col items-end gap-2 text-sm text-white/65" aria-label={t.footer.navigationLabel}>
+                <nav className="hidden flex-col items-center gap-2 text-sm text-white/65 sm:flex lg:items-end" aria-label={t.footer.navigationLabel}>
                   <a className="py-1 transition-colors hover:text-white" href="#fleet">{t.nav.cars}</a>
                   <a className="py-1 transition-colors hover:text-white" href="#included">{t.nav.included}</a>
                 </nav>
               </div>
-
-              <p className="w-full border-t border-white/10 pt-6 text-xs text-white/40">{t.footer.descriptor}</p>
             </div>
           </div>
+          <p className="text-center text-xs text-white/40 lg:text-left">© {new Date().getFullYear()} {t.footer.rights}</p>
         </div>
       </footer>
       <a

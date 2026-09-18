@@ -22,7 +22,7 @@ export const translations = {
       compareTitle: 'Before you compare two daily rates…',
       compareBody: 'Look at the final rental conditions too. Insurance, airport fees, card holds and fuel can make the cheaper headline price cost more.',
       example: 'Example advertised rate', starts: 'Starts at', insurance: 'Required insurance', airport: 'Airport delivery', held: 'Amount held on card', fuel: 'Fuel charged above pump price',
-      approximate: 'Approx. final cost', exampleNote: 'Illustrative scenario from the assignment brief — not a claim about a named competitor.',
+      approximate: 'Approx. final cost', finalDaily: 'Final daily rate', exampleNote: 'Illustrative scenario from the assignment brief — not a claim about a named competitor.',
       clear: 'Clear from the start', included: 'Included', zeroInsurance: 'Full insurance, zero excess', airportIncluded: 'Kos Airport pickup & return', secondDriver: 'Second driver', fullFuel: 'Full-to-full fuel', meltemiNote: '€35 is easier to budget because the important extras are already in the price.',
     },
     fleet: {
@@ -78,7 +78,7 @@ export const translations = {
         networkError: 'We could not reach the booking service. Check your connection and try again.',
       },
     },
-    footer: { location: 'Kos, Greece', address: '12 Vasileos Pavlou, Kos Town 85300', tagline: 'Your time in Kos should feel this simple.', navigationLabel: 'Footer navigation', descriptor: 'Car rental in Kos', rights: 'Meltemi Rentals. All rights reserved.' },
+    footer: { location: 'Kos, Greece', address: '12 Vasileos Pavlou, Kos Town 85300', tagline: 'Your time in Kos should feel this simple.', navigationLabel: 'Footer navigation', rights: 'Meltemi Rentals. All rights reserved.' },
     sticky: { label: 'All-inclusive from', cta: 'Check dates' },
   },
   el: {
@@ -103,7 +103,7 @@ export const translations = {
       intro: 'Σημασία έχει το ποσό που θα πληρώσεις τελικά. Σύγκρινε τους τελικούς όρους της ενοικίασης, όχι μόνο την πρώτη τιμή που βλέπεις.',
       compareTitle: 'Πριν συγκρίνεις δύο ημερήσιες τιμές…', compareBody: 'Κοίταξε και τους τελικούς όρους. Η ασφάλιση, οι χρεώσεις αεροδρομίου, η δέσμευση ποσού στην κάρτα και τα καύσιμα μπορούν να κάνουν μια φαινομενικά χαμηλή τιμή πολύ ακριβότερη.',
       example: 'Παράδειγμα αρχικής τιμής', starts: 'Ξεκινά από', insurance: 'Υποχρεωτική ασφάλιση', airport: 'Παράδοση στο αεροδρόμιο', held: 'Δέσμευση στην κάρτα', fuel: 'Επιπλέον χρέωση καυσίμων',
-      approximate: 'Εκτιμώμενο τελικό κόστος', exampleNote: 'Το παράδειγμα είναι ενδεικτικό και δεν αφορά συγκεκριμένη εταιρεία.', clear: 'Ξεκάθαρα από την αρχή', included: 'Περιλαμβάνεται', zeroInsurance: 'Πλήρης ασφάλιση, χωρίς απαλλαγή', airportIncluded: 'Παραλαβή & επιστροφή στο αεροδρόμιο', secondDriver: 'Δεύτερος οδηγός', fullFuel: 'Καύσιμα: γεμάτο-γεμάτο', meltemiNote: 'Με 35€ την ημέρα γνωρίζεις εξαρχής το κόστος, αφού όλα τα σημαντικά επιπλέον περιλαμβάνονται ήδη στην τιμή.',
+      approximate: 'Εκτιμώμενο τελικό κόστος', finalDaily: 'Τελική ημερήσια τιμή', exampleNote: 'Το παράδειγμα είναι ενδεικτικό και δεν αφορά συγκεκριμένη εταιρεία.', clear: 'Ξεκάθαρα από την αρχή', included: 'Περιλαμβάνεται', zeroInsurance: 'Πλήρης ασφάλιση, χωρίς απαλλαγή', airportIncluded: 'Παραλαβή & επιστροφή στο αεροδρόμιο', secondDriver: 'Δεύτερος οδηγός', fullFuel: 'Καύσιμα: γεμάτο-γεμάτο', meltemiNote: 'Με 35€ την ημέρα γνωρίζεις εξαρχής το κόστος, αφού όλα τα σημαντικά επιπλέον περιλαμβάνονται ήδη στην τιμή.',
     },
     fleet: {
       eyebrow: 'Επίλεξε αυτοκίνητο', title: 'Βρες το αυτοκίνητο που ταιριάζει στο ταξίδι σου.', intro: 'Τέσσερις απλές κατηγορίες, με όλα τα βασικά να περιλαμβάνονται στην ημερήσια τιμή.',
@@ -156,7 +156,7 @@ export const translations = {
         networkError: 'Δεν μπορέσαμε να συνδεθούμε με την υπηρεσία κρατήσεων. Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά.',
       },
     },
-    footer: { location: 'Κως, Ελλάδα', address: 'Βασιλέως Παύλου 12, Κως 85300', tagline: 'Οι διαδρομές σου στην Κω, όπως πρέπει να είναι: απλές.', navigationLabel: 'Πλοήγηση υποσέλιδου', descriptor: 'Ενοικίαση αυτοκινήτου στην Κω', rights: 'Meltemi Rentals. Όλα τα δικαιώματα διατηρούνται.' },
+    footer: { location: 'Κως, Ελλάδα', address: 'Βασιλέως Παύλου 12, Κως 85300', tagline: 'Οι διαδρομές σου στην Κω, όπως πρέπει να είναι: απλές.', navigationLabel: 'Πλοήγηση υποσέλιδου', rights: 'Meltemi Rentals. Όλα τα δικαιώματα διατηρούνται.' },
     sticky: { label: 'Όλα τα βασικά από', cta: 'Δες ημερομηνίες' },
   },
 }

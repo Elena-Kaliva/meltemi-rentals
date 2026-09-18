@@ -89,12 +89,12 @@ export function Hero({ t, cars, selection, onSelectionChange, onCheckAvailabilit
   )
 }
 
-function CostRow({ children, included = false, total = false }) {
+function CostRow({ children, included = false, total = false, featuredTotal = false }) {
   return (
-    <div className={`flex min-h-12 items-center justify-between gap-4 text-sm ${total ? 'mt-2 rounded-xl bg-white/[.12] px-3.5 py-2.5' : included ? 'border-t border-stone-200 py-3' : 'border-t border-white/10 py-3'}`}>
+    <div className={`flex min-h-[3.75rem] items-center justify-between gap-4 text-sm ${featuredTotal ? 'mt-2 rounded-xl bg-aegean px-3.5 py-2.5 text-white' : total ? 'mt-2 rounded-xl bg-white/[.12] px-3.5 py-2.5' : included ? 'border-t border-stone-200 py-3' : 'border-t border-white/10 py-3'}`}>
       <div className="flex min-w-0 items-center gap-2.5">
-        <span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-[11px] font-black ${included ? 'bg-aegean text-white' : total ? 'bg-white text-ink' : 'bg-white/10 text-stone-300'}`} aria-hidden="true">
-          {included ? '✓' : total ? '=' : '+'}
+        <span className={`grid h-6 w-6 shrink-0 place-items-center rounded-full text-[11px] font-black ${featuredTotal ? 'bg-white text-aegean' : included ? 'bg-aegean text-white' : total ? 'bg-white text-ink' : 'bg-white/10 text-stone-300'}`} aria-hidden="true">
+          {included ? '✓' : total || featuredTotal ? '=' : '+'}
         </span>
         {children[0]}
       </div>
@@ -132,8 +132,9 @@ export function Pricing({ t }) {
             <div className="mt-auto">
               <CostRow><span>{p.insurance}</span><strong className="shrink-0 text-rose-200">+ €15/day</strong></CostRow>
               <CostRow><span>{p.airport}</span><strong className="shrink-0 text-rose-200">+ €25</strong></CostRow>
-              <CostRow><span>{p.held}</span><strong className="shrink-0 text-rose-200">€1,200</strong></CostRow>
+              <CostRow><span>{p.secondDriver}</span><strong className="shrink-0 text-rose-200">+</strong></CostRow>
               <CostRow><span>{p.fuel}</span><strong className="shrink-0 text-rose-200">+</strong></CostRow>
+              <CostRow><span>{p.held}</span><strong className="shrink-0 text-rose-200">€1,200</strong></CostRow>
               <CostRow total><strong>{p.approximate}</strong><strong className="shrink-0 text-base">≈ €48/day</strong></CostRow>
             </div>
             <p className="mt-4 text-[11px] leading-5 text-slate-400">{p.exampleNote}</p>
@@ -155,6 +156,7 @@ export function Pricing({ t }) {
               <CostRow included><span>{p.secondDriver}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
               <CostRow included><span>{p.fullFuel}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
               <CostRow included><span>{p.held}</span><strong className="shrink-0 text-aegean">€0</strong></CostRow>
+              <CostRow featuredTotal><strong>{p.finalDaily}</strong><strong className="shrink-0 text-base">€35/day</strong></CostRow>
             </div>
             <p className="mt-4 text-[11px] leading-5 text-stone-600">{p.meltemiNote}</p>
           </article>
@@ -244,12 +246,12 @@ function MobileFactIcon({ kind }) {
 
 export function MobileShowcase({ t }) {
   const factPositions = [
-    'lg:left-[2%] lg:top-[12%]',
-    'lg:right-[2%] lg:top-[12%]',
-    'lg:left-[9%] lg:top-[45%]',
-    'lg:right-[9%] lg:top-[45%]',
-    'lg:left-[2%] lg:top-[78%]',
-    'lg:right-[2%] lg:top-[78%]',
+    '-left-1 top-[3%] lg:left-[2%] lg:top-[12%]',
+    '-right-1 top-[19%] lg:right-[2%] lg:top-[12%]',
+    'left-0 top-[35%] lg:left-[9%] lg:top-[45%]',
+    'right-0 top-[51%] lg:right-[9%] lg:top-[45%]',
+    'left-0 top-[67%] lg:left-[2%] lg:top-[78%]',
+    'right-0 top-[83%] lg:right-[2%] lg:top-[78%]',
   ]
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
@@ -281,37 +283,37 @@ export function MobileShowcase({ t }) {
           <h2 className="mt-6 text-[clamp(2.5rem,5vw,4.25rem)] font-extrabold leading-[.94] tracking-[-.064em]">{t.mobile.title}</h2>
           <p className="mx-auto mt-5 max-w-2xl leading-7 text-white/80">{t.mobile.body}</p>
           </div>
-          <div className="relative mx-auto mt-8 max-w-6xl lg:min-h-[44rem]">
+          <div className="relative left-1/2 mx-auto mt-8 min-h-[32rem] w-screen max-w-6xl -translate-x-1/2 px-2 sm:left-auto sm:min-h-[44rem] sm:w-auto sm:translate-x-0 sm:px-0">
           <span className="pointer-events-none absolute left-1/2 top-[48%] hidden text-[11rem] font-black leading-none tracking-[-.09em] text-white/[.045] lg:block lg:-translate-x-1/2 lg:-translate-y-1/2" aria-hidden="true">KOS</span>
           <span className="pointer-events-none absolute left-1/2 top-[48%] hidden h-[39rem] w-[39rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/10 lg:block" aria-hidden="true" />
           <span className="pointer-events-none absolute left-1/2 top-[48%] hidden h-[29rem] w-[29rem] -translate-x-1/2 -translate-y-1/2 rounded-full border border-white/[.07] lg:block" aria-hidden="true" />
-          <div className="relative z-10 mx-auto h-[36rem] w-[18rem] rounded-[2.5rem] bg-[#101110] p-2.5 shadow-[0_34px_80px_rgba(0,0,0,.3)] sm:h-[40.5rem] sm:w-[20.625rem] sm:rounded-[2.875rem]">
-            <span className="absolute left-1/2 top-3.5 z-20 h-6 w-28 -translate-x-1/2 rounded-full bg-[#101110]" aria-hidden="true" />
-            <div className="h-full overflow-hidden rounded-[2rem] bg-paper text-ink sm:rounded-[2.375rem]">
-              <div className="flex h-14 items-center justify-between px-4 text-xs font-extrabold"><span><b>meltemi</b> rentals</span><span className="grid h-7 w-7 place-items-center rounded-full bg-ink text-white" aria-hidden="true">≡</span></div>
-              <div className="relative h-[15.5rem] overflow-hidden sm:h-[17.75rem]">
+          <div className="relative z-20 mx-auto h-[25rem] w-[11.75rem] rounded-[1.8rem] bg-[#101110] p-1.5 shadow-[0_34px_80px_rgba(0,0,0,.3)] sm:h-[40.5rem] sm:w-[20.625rem] sm:rounded-[2.875rem] sm:p-2.5">
+            <span className="absolute left-1/2 top-2.5 z-20 h-4 w-20 -translate-x-1/2 rounded-full bg-[#101110] sm:top-3.5 sm:h-6 sm:w-28" aria-hidden="true" />
+            <div className="h-full overflow-hidden rounded-[1.5rem] bg-paper text-ink sm:rounded-[2.375rem]">
+              <div className="flex h-10 items-center justify-between px-3 text-[8px] font-extrabold sm:h-14 sm:px-4 sm:text-xs"><span><b>meltemi</b> rentals</span><span className="grid h-5 w-5 place-items-center rounded-full bg-ink text-white sm:h-7 sm:w-7" aria-hidden="true">≡</span></div>
+              <div className="relative h-[9.75rem] overflow-hidden sm:h-[17.75rem]">
                 <img className="h-full w-full object-cover object-[60%_center]" src={heroSmall} alt="" width="840" height="473" loading="lazy" decoding="async" />
                 <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black/60" />
-                <div className="absolute inset-x-4 bottom-4 z-10 text-white"><small className="text-[9px] font-bold uppercase tracking-wide">{t.mobile.previewContext}</small><strong className="mt-1 block text-2xl font-black leading-[.96] tracking-[-.055em] sm:text-[1.8rem]">{t.mobile.previewHeadline}</strong></div>
+                <div className="absolute inset-x-3 bottom-3 z-10 text-white sm:inset-x-4 sm:bottom-4"><small className="text-[6px] font-bold uppercase tracking-wide sm:text-[9px]">{t.mobile.previewContext}</small><strong className="mt-1 block text-base font-black leading-[.96] tracking-[-.045em] sm:text-[1.8rem] sm:tracking-[-.055em]">{t.mobile.previewHeadline}</strong></div>
               </div>
-              <div className="mx-3.5 mt-3 flex items-center justify-between rounded-xl bg-white p-3 text-[10px] shadow-sm"><span>{t.sticky.label}</span><b className="text-lg text-aegean">€35/day</b></div>
-              <div className="grid grid-cols-2 gap-2 px-3.5 py-2.5">
-                {t.mobile.previewItems.map(([label, value]) => <div className="rounded-xl bg-white p-2.5 text-[9px]" key={label}><span>{label}</span><b className="mt-0.5 block text-[11px]">{value}</b></div>)}
+              <div className="mx-2.5 mt-2 flex items-center justify-between rounded-lg bg-white p-2 text-[7px] shadow-sm sm:mx-3.5 sm:mt-3 sm:rounded-xl sm:p-3 sm:text-[10px]"><span>{t.sticky.label}</span><b className="text-sm text-aegean sm:text-lg">€35/day</b></div>
+              <div className="grid grid-cols-2 gap-1 px-2.5 py-1.5 sm:gap-2 sm:px-3.5 sm:py-2.5">
+                {t.mobile.previewItems.map(([label, value]) => <div className="rounded-md bg-white p-1.5 text-[6px] sm:rounded-xl sm:p-2.5 sm:text-[9px]" key={label}><span>{label}</span><b className="mt-0.5 block text-[8px] sm:text-[11px]">{value}</b></div>)}
               </div>
-              <div className="mx-3.5 grid h-10 place-items-center rounded-full bg-aegean text-[11px] font-extrabold text-white">{t.mobile.previewCta} →</div>
+              <div className="mx-2.5 grid h-7 place-items-center rounded-full bg-aegean text-[8px] font-extrabold text-white sm:mx-3.5 sm:h-10 sm:text-[11px]">{t.mobile.previewCta} →</div>
             </div>
           </div>
-          <div className="relative z-20 mt-6 grid grid-cols-2 gap-2.5 lg:absolute lg:inset-0 lg:mt-0 lg:block" aria-label={t.mobile.factsLabel}>
+          <div className="absolute inset-0 z-10" aria-label={t.mobile.factsLabel}>
             {t.mobile.facts.map(([label, value], index) => (
               <div
-                className={`mobile-fact relative flex items-center gap-3 overflow-hidden rounded-2xl border border-white/20 bg-[#143d75]/80 p-2.5 pr-3 text-white shadow-[0_22px_55px_rgba(5,25,56,.3)] backdrop-blur-xl sm:gap-4 sm:p-3 sm:pr-4 lg:absolute lg:w-[17rem] lg:rounded-full ${isVisible ? 'mobile-fact-visible' : ''} ${factPositions[index]}`}
+                className={`mobile-fact absolute flex w-32 items-center gap-1.5 overflow-hidden rounded-[1rem] border border-white/20 bg-[#143d75]/90 p-1.5 text-white shadow-[0_22px_55px_rgba(5,25,56,.32)] backdrop-blur-xl sm:w-[14rem] sm:gap-3 sm:rounded-full sm:p-3 sm:pr-4 lg:w-[17rem] lg:gap-4 ${index % 2 === 1 ? 'flex-row-reverse text-right sm:flex-row sm:text-left' : ''} ${isVisible ? 'mobile-fact-visible' : ''} ${factPositions[index]}`}
                 key={label}
-                style={{ '--fact-delay': `${250 + index * 700}ms`, '--fact-x': index % 2 === 0 ? '120px' : '-120px', '--border-delay': `${index * -1.15}s` }}
+                style={{ '--fact-delay': `${250 + index * 700}ms`, '--fact-x': index % 2 === 0 ? '-90px' : '90px', '--border-delay': `${index * -1.15}s` }}
               >
-                <span className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white text-aegean shadow-[0_8px_20px_rgba(0,0,0,.16)] sm:h-12 sm:w-12 lg:h-16 lg:w-16" aria-hidden="true"><MobileFactIcon kind={MOBILE_FACT_KINDS[index]} /></span>
+                <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white text-aegean shadow-[0_8px_20px_rgba(0,0,0,.16)] sm:h-12 sm:w-12 lg:h-16 lg:w-16" aria-hidden="true"><MobileFactIcon kind={MOBILE_FACT_KINDS[index]} /></span>
                 <span className="min-w-0">
-                  <small className="block text-[8px] font-extrabold uppercase tracking-[.09em] text-white/60 sm:text-[9px]">{label}</small>
-                  <strong className="mt-0.5 block text-sm font-black tracking-[-.04em] sm:text-lg lg:text-[1.45rem]">{value}</strong>
+                  <small className="hidden text-[7px] font-extrabold uppercase tracking-[.06em] text-white/60 min-[380px]:block sm:text-[9px] sm:tracking-[.09em]">{label}</small>
+                  <strong className="block text-[10px] font-black leading-tight tracking-[-.025em] min-[380px]:mt-0.5 sm:text-lg sm:tracking-[-.04em] lg:text-[1.45rem]">{value}</strong>
                 </span>
               </div>
             ))}
@@ -328,7 +330,7 @@ export function Booking({ t, cars, selection, onSelectionChange, onResetSelectio
     <section className="section-pad scroll-mt-20" id="request">
       <div className="page-wrap relative">
         <div className="relative grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start lg:gap-14">
-          <div className="lg:sticky lg:top-28">
+          <div>
             <SectionMarker number="04" label={t.booking.eyebrow} />
             <h2 className="mt-6 text-[clamp(2.6rem,4.5vw,4rem)] font-extrabold leading-[.94] tracking-[-.064em]" id="booking-form-title">{t.booking.title}</h2>
             <p className="mt-5 max-w-lg text-base leading-7 text-stone-600">{t.booking.body}</p>
