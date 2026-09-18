@@ -125,7 +125,7 @@ export function Pricing({ t }) {
               <span className="rounded-full bg-white/[.07] px-3 py-2 text-[10px] font-extrabold uppercase tracking-[.07em] text-slate-300">{p.example}</span>
               <span className="text-[10px] font-extrabold uppercase tracking-[.07em] text-slate-400">{p.starts}</span>
             </div>
-            <div className="my-6 flex items-end gap-2 border-b border-white/10 pb-6">
+            <div className="my-6 flex items-end gap-2 pb-6">
               <p className="text-6xl font-extrabold leading-none tracking-[-.075em] text-white/85 sm:text-7xl">€8</p>
               <span className="mb-1.5 text-sm font-bold text-slate-400">/day</span>
             </div>
@@ -145,7 +145,7 @@ export function Pricing({ t }) {
               <span className="rounded-full bg-aegean px-3 py-2 text-[10px] font-extrabold uppercase tracking-[.07em] text-white">Meltemi Rentals</span>
               <span className="text-right text-[10px] font-extrabold uppercase tracking-[.07em] text-aegean">{p.clear}</span>
             </div>
-            <div className="my-6 flex items-end gap-2 border-b border-stone-200 pb-6">
+            <div className="my-6 flex items-end gap-2 pb-6">
               <p className="text-6xl font-extrabold leading-none tracking-[-.075em] text-aegean sm:text-7xl">€35</p>
               <span className="mb-1.5 text-sm font-bold text-stone-500">/day</span>
             </div>
