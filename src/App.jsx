@@ -92,26 +92,26 @@ export default function App() {
               <p className="mt-8 text-xs text-white/40">© {new Date().getFullYear()} {t.footer.rights}</p>
             </div>
 
-            <div className="flex flex-col gap-8">
+            <div className="flex flex-col items-end gap-8 text-right">
               <a className="inline-flex min-h-12 w-fit items-center justify-center gap-3 rounded-full bg-white px-5 text-sm font-extrabold text-ink transition-[background-color,color] duration-300 hover:bg-aegean hover:text-white" href="#request">{t.nav.cta}<span aria-hidden="true">↗</span></a>
 
-              <div className="grid gap-8 sm:grid-cols-3">
+              <div className="flex flex-col items-end gap-6">
                 <div>
                   <p className="text-[10px] font-extrabold uppercase tracking-[.12em] text-white/45">{t.footer.location}</p>
                   <a className="mt-2 inline-block text-lg font-bold transition-colors hover:text-blue-300" href="mailto:hello@meltemirentals.gr">hello@meltemirentals.gr</a>
                 </div>
-                <nav className="flex flex-col items-start gap-2 text-sm text-white/65" aria-label={t.footer.navigationLabel}>
+                <nav className="flex flex-col items-end gap-2 text-sm text-white/65" aria-label={t.footer.navigationLabel}>
                   <a className="py-1 transition-colors hover:text-white" href="#fleet">{t.nav.cars}</a>
                   <a className="py-1 transition-colors hover:text-white" href="#included">{t.nav.included}</a>
                   <a className="py-1 transition-colors hover:text-white" href="#faq">{t.nav.faq}</a>
                 </nav>
-                <a className="group flex items-center gap-3 text-sm font-bold text-white/65 transition-colors hover:text-white" href="#top">
+                <a className="group flex w-fit items-center gap-3 text-sm font-bold text-white/65 transition-colors hover:text-white" href="#top">
                   {t.footer.backToTop}
                   <span className="grid h-9 w-9 place-items-center rounded-full border border-white/20 transition-[background-color,color] group-hover:bg-white group-hover:text-ink" aria-hidden="true">↑</span>
                 </a>
               </div>
 
-              <p className="border-t border-white/10 pt-6 text-xs text-white/40">{t.footer.descriptor}</p>
+              <p className="w-full border-t border-white/10 pt-6 text-xs text-white/40">{t.footer.descriptor}</p>
             </div>
           </div>
         </div>
