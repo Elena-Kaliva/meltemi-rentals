@@ -8,7 +8,7 @@ export default function TripTotal({ t, tripDetails }) {
           <p className="text-sm font-semibold text-stone-600">{tripDetails.days} {tt.days} × €{tripDetails.dailyRate}{t.fleet.day}</p>
           <p className="text-right leading-tight">
             <span className="block text-[10px] font-extrabold uppercase tracking-[.09em] text-stone-500">{tt.title}</span>
-            <span className="text-3xl font-black tracking-tight text-ink">€{tripDetails.total}</span>
+            <span className="text-3xl font-extrabold tracking-tight text-ink">€{tripDetails.total}</span>
           </p>
         </div>
       </div>

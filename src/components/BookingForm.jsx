@@ -159,7 +159,7 @@ export default function BookingForm({ selection, onSelectionChange, onResetSelec
     return (
       <div className="flex min-h-[430px] flex-col items-start justify-center rounded-[1.75rem] border border-white/80 bg-white/90 p-6 text-ink shadow-[0_24px_65px_rgba(23,24,23,.09)] backdrop-blur-xl sm:p-10" role="status" aria-live="polite" tabIndex="-1" ref={successRef}>
         <span className="grid h-12 w-12 place-items-center rounded-full bg-emerald-100 text-2xl font-black text-emerald-700" aria-hidden="true">✓</span>
-        <h3 className="mt-5 text-2xl font-black tracking-tight">{t.booking.successTitle}</h3>
+        <h3 className="mt-5 text-2xl font-extrabold tracking-tight">{t.booking.successTitle}</h3>
         <p className="mt-3 max-w-lg leading-7 text-slate-600">{t.booking.successBody}</p>
         <p className="mt-3 text-sm font-semibold text-aegean">{t.booking.successNote}</p>
         <button className="button-secondary mt-7" type="button" onClick={startAnotherRequest}>{t.booking.anotherRequest}</button>

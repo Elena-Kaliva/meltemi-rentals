@@ -87,7 +87,7 @@ export default function App() {
           <div className="grid gap-10 pb-10 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
             <div>
               <a className="w-fit rounded text-white" href="#top" aria-label="Meltemi Rentals home"><Brand /></a>
-              <h2 className="mt-6 max-w-sm text-[clamp(1.65rem,2.6vw,2.35rem)] font-black leading-[1.08] tracking-[-.04em] [text-wrap:balance]">{t.footer.tagline}</h2>
+              <h2 className="mt-6 max-w-sm text-[clamp(1.65rem,2.6vw,2.35rem)] font-extrabold leading-[1.08] tracking-[-.04em] [text-wrap:balance]">{t.footer.tagline}</h2>
               <p className="mt-8 text-xs text-white/40">© {new Date().getFullYear()} {t.footer.rights}</p>
             </div>
 

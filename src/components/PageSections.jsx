@@ -44,7 +44,7 @@ export function Hero({ t, cars, selection, onSelectionChange, onCheckAvailabilit
           </div>
 
           <div className="hero-copy absolute left-1/2 top-28 z-10 w-[calc(100%-3rem)] max-w-[73.75rem] -translate-x-1/2 text-white sm:bottom-36 sm:top-auto sm:w-[calc(100%-5rem)]">
-            <h1 className="text-[clamp(2.35rem,7vw,5.75rem)] font-black leading-[.93] tracking-[-.067em] [text-wrap:balance] sm:text-[clamp(2.75rem,7vw,5.75rem)]">
+            <h1 className="text-[clamp(2.35rem,7vw,5.75rem)] font-extrabold leading-[.93] tracking-[-.067em] [text-wrap:balance] sm:text-[clamp(2.75rem,7vw,5.75rem)]">
               <span className="block">{t.hero.title1}</span>
               <span className="block">{t.hero.title2}</span>
               <span className="block">{t.hero.title3}</span>
@@ -110,7 +110,7 @@ export function Pricing({ t }) {
       <div className="page-wrap mb-9 sm:mb-12">
         <SectionMarker number="01" label={p.eyebrow} />
         <div className="mt-6 max-w-5xl">
-          <h2 className="text-[clamp(2.75rem,5.4vw,4.75rem)] font-black leading-[.93] tracking-[-.067em] text-ink [text-wrap:balance]">{p.title}</h2>
+          <h2 className="text-[clamp(2.75rem,5.4vw,4.75rem)] font-extrabold leading-[.93] tracking-[-.067em] text-ink [text-wrap:balance]">{p.title}</h2>
           <p className="mt-6 max-w-2xl text-base leading-7 text-stone-600 lg:text-lg lg:leading-8">{p.intro}</p>
         </div>
       </div>
@@ -126,7 +126,7 @@ export function Pricing({ t }) {
               <span className="text-[10px] font-extrabold uppercase tracking-[.07em] text-slate-400">{p.starts}</span>
             </div>
             <div className="my-6 flex items-end gap-2 border-b border-white/10 pb-6">
-              <p className="text-6xl font-black leading-none tracking-[-.075em] text-white/85 sm:text-7xl">€8</p>
+              <p className="text-6xl font-extrabold leading-none tracking-[-.075em] text-white/85 sm:text-7xl">€8</p>
               <span className="mb-1.5 text-sm font-bold text-slate-400">/day</span>
             </div>
             <div className="mt-auto">
@@ -146,7 +146,7 @@ export function Pricing({ t }) {
               <span className="text-right text-[10px] font-extrabold uppercase tracking-[.07em] text-aegean">{p.clear}</span>
             </div>
             <div className="my-6 flex items-end gap-2 border-b border-stone-200 pb-6">
-              <p className="text-6xl font-black leading-none tracking-[-.075em] text-aegean sm:text-7xl">€35</p>
+              <p className="text-6xl font-extrabold leading-none tracking-[-.075em] text-aegean sm:text-7xl">€35</p>
               <span className="mb-1.5 text-sm font-bold text-stone-500">/day</span>
             </div>
             <div className="mt-auto">
@@ -155,8 +155,6 @@ export function Pricing({ t }) {
               <CostRow included><span>{p.secondDriver}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
               <CostRow included><span>{p.fullFuel}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
               <CostRow included><span>{p.held}</span><strong className="shrink-0 text-aegean">€0</strong></CostRow>
-              <CostRow included><span>{p.support}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
-              <CostRow included><span>{p.mileage}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
             </div>
             <p className="mt-4 text-[11px] leading-5 text-stone-600">{p.meltemiNote}</p>
           </article>
@@ -180,7 +178,7 @@ export function Fleet({ t, cars, onRequest }) {
       <div className="page-wrap">
         <SectionMarker number="02" label={t.fleet.eyebrow} />
         <div className="mt-6 max-w-4xl">
-          <h2 className="text-[clamp(2.65rem,5vw,4.35rem)] font-black leading-[.94] tracking-[-.063em] [text-wrap:balance]">{t.fleet.title}</h2>
+          <h2 className="text-[clamp(2.65rem,5vw,4.35rem)] font-extrabold leading-[.94] tracking-[-.063em] [text-wrap:balance]">{t.fleet.title}</h2>
           <p className="mt-5 max-w-2xl text-base leading-7 text-stone-600 lg:text-lg lg:leading-8">{t.fleet.intro}</p>
           <p className="mt-3 text-sm text-stone-500">{t.fleet.ageNote}</p>
         </div>
@@ -193,7 +191,7 @@ export function Fleet({ t, cars, onRequest }) {
                 <img className="fleet-car-image relative h-full w-full object-contain p-2 sm:p-3" src={car.image} alt={t.fleet.alt(car.name)} width="720" height="480" loading="lazy" decoding="async" />
               </div>
               <div className="flex flex-1 flex-col p-5 pt-0">
-                <h3 className="text-xl font-black tracking-tight">{car.name}</h3>
+                <h3 className="text-xl font-extrabold tracking-tight">{car.name}</h3>
                 <p className="mt-1 text-xs text-stone-500">{car.example} {t.fleet.similar}</p>
                 <div className="mt-5 grid grid-cols-3 gap-2 text-center">
                   <div className="flex flex-col items-center gap-1.5">
@@ -284,7 +282,7 @@ export function MobileShowcase({ t }) {
         <div className="page-wrap relative">
           <div className="mx-auto max-w-4xl text-center">
           <SectionMarker number="03" label={t.mobile.factsLabel} inverse centered />
-          <h2 className="mt-6 text-[clamp(2.5rem,5vw,4.25rem)] font-black leading-[.94] tracking-[-.064em]">{t.mobile.title}</h2>
+          <h2 className="mt-6 text-[clamp(2.5rem,5vw,4.25rem)] font-extrabold leading-[.94] tracking-[-.064em]">{t.mobile.title}</h2>
           <p className="mx-auto mt-5 max-w-2xl leading-7 text-white/80">{t.mobile.body}</p>
           </div>
           <div className="relative mx-auto mt-8 max-w-6xl lg:min-h-[44rem]">
@@ -336,7 +334,7 @@ export function Booking({ t, cars, selection, onSelectionChange, onResetSelectio
         <div className="relative grid gap-10 lg:grid-cols-[.72fr_1.28fr] lg:items-start lg:gap-14">
           <div className="lg:sticky lg:top-28">
             <SectionMarker number="04" label={t.booking.eyebrow} />
-            <h2 className="mt-6 text-[clamp(2.6rem,4.5vw,4rem)] font-black leading-[.94] tracking-[-.064em]" id="booking-form-title">{t.booking.title}</h2>
+            <h2 className="mt-6 text-[clamp(2.6rem,4.5vw,4rem)] font-extrabold leading-[.94] tracking-[-.064em]" id="booking-form-title">{t.booking.title}</h2>
             <p className="mt-5 max-w-lg text-base leading-7 text-stone-600">{t.booking.body}</p>
             <div className="mt-8 border-t border-slate-400/30 pt-6">
               <p className="field-label">{t.booking.howItWorks.title}</p>
