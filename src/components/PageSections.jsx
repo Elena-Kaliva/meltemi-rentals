@@ -239,12 +239,12 @@ function MobileFactIcon({ kind }) {
 
 export function MobileShowcase({ t }) {
   const factPositions = [
-    'lg:left-[2%] lg:top-[10%]',
-    'lg:right-[2%] lg:top-[24%]',
-    'lg:left-[6%] lg:top-[38%]',
-    'lg:right-[4%] lg:top-[52%]',
-    'lg:left-[3%] lg:top-[66%]',
-    'lg:right-[6%] lg:top-[80%]',
+    'lg:left-[2%] lg:top-[12%]',
+    'lg:right-[2%] lg:top-[12%]',
+    'lg:left-[9%] lg:top-[45%]',
+    'lg:right-[9%] lg:top-[45%]',
+    'lg:left-[2%] lg:top-[78%]',
+    'lg:right-[2%] lg:top-[78%]',
   ]
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)
