@@ -46,8 +46,8 @@ export function Hero({ t, cars, selection, onSelectionChange, onCheckAvailabilit
           <div className="hero-copy absolute left-1/2 top-28 z-10 w-[calc(100%-3rem)] max-w-[73.75rem] -translate-x-1/2 text-white sm:bottom-36 sm:top-auto sm:w-[calc(100%-5rem)]">
             <h1 className="text-[clamp(2.35rem,7vw,5.75rem)] font-black leading-[.93] tracking-[-.067em] [text-wrap:balance] sm:text-[clamp(2.75rem,7vw,5.75rem)]">
               <span className="block">{t.hero.title1}</span>
-              <span className="block font-medium">{t.hero.title2}</span>
-              <span className="block font-medium">{t.hero.title3}</span>
+              <span className="block">{t.hero.title2}</span>
+              <span className="block">{t.hero.title3}</span>
             </h1>
             <p className="mt-5 max-w-xl text-sm leading-6 text-white/90 sm:mt-6 sm:text-lg sm:leading-8">{t.hero.body}</p>
             <div className="mt-6 flex flex-col gap-2 min-[420px]:flex-row sm:mt-7">
