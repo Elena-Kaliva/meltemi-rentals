@@ -353,7 +353,7 @@ export function Booking({ t, cars, selection, onSelectionChange, onResetSelectio
 
 export function FAQ({ t }) {
   return (
-    <section className="section-pad scroll-mt-24 pt-2 sm:pt-6" id="faq">
+    <section className="section-pad scroll-mt-24 border-y border-stone-300/50 bg-white/40 pt-2 sm:pt-6" id="faq">
       <div className="page-wrap grid gap-9 lg:grid-cols-[.68fr_1.32fr] lg:gap-20">
         <div className="lg:sticky lg:top-28 lg:self-start">
           <SectionMarker number="05" label={t.faq.eyebrow} />
@@ -361,7 +361,7 @@ export function FAQ({ t }) {
         </div>
         <div className="space-y-2.5">
           {t.faq.items.map(([question, answer], index) => (
-            <details className="group overflow-hidden rounded-[1.35rem] border border-stone-200/80 bg-white/75 shadow-[0_8px_28px_rgba(23,24,23,.035)] backdrop-blur-sm transition-[border-color,background-color,box-shadow] open:border-aegean/20 open:bg-white open:shadow-[0_16px_40px_rgba(23,24,23,.07)]" key={question} name="faq">
+            <details className="group overflow-hidden rounded-[1.35rem] border border-stone-200/80 bg-white shadow-[0_8px_28px_rgba(23,24,23,.05)] transition-[border-color,background-color,box-shadow] open:border-aegean/20 open:shadow-[0_16px_40px_rgba(23,24,23,.09)]" key={question} name="faq">
               <summary className="flex w-full cursor-pointer list-none items-center gap-4 p-5 font-bold marker:hidden sm:p-6">
                 <span className="text-[10px] font-black tabular-nums text-stone-400">0{index + 1}</span>
                 <span className="flex-1">{question}</span>
