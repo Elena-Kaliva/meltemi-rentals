@@ -301,26 +301,6 @@ export function MobileShowcase({ t }) {
   )
 }
 
-function HowItWorks({ t }) {
-  const hw = t.booking.howItWorks
-  return (
-    <div className="mb-6 sm:mb-8">
-      <p className="field-label">{hw.title}</p>
-      <div className="mt-3 grid grid-cols-1 divide-y divide-stone-300/60 rounded-2xl border border-stone-300/60 bg-white/70 backdrop-blur-sm sm:grid-cols-3 sm:divide-x sm:divide-y-0">
-        {hw.steps.map(([title, body], index) => (
-          <div className="flex items-start gap-3 p-4 sm:flex-col sm:gap-2.5 sm:p-5" key={title}>
-            <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full bg-aegean/[.08] text-xs font-black text-aegean" aria-hidden="true">{index + 1}</span>
-            <div>
-              <h3 className="text-sm font-extrabold leading-5 text-ink">{title}</h3>
-              <p className="mt-1 text-sm leading-6 text-stone-600">{body}</p>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
 export function Booking({ t, cars, selection, onSelectionChange, onResetSelection, language }) {
   return (
     <section className="section-pad scroll-mt-20" id="request">
@@ -333,19 +313,21 @@ export function Booking({ t, cars, selection, onSelectionChange, onResetSelectio
             <h2 className="mt-6 text-[clamp(2.6rem,4.5vw,4rem)] font-black leading-[.94] tracking-[-.064em]" id="booking-form-title">{t.booking.title}</h2>
             <p className="mt-5 max-w-lg text-base leading-7 text-stone-600">{t.booking.body}</p>
             <div className="mt-8 border-t border-slate-400/30 pt-6">
-              <p className="field-label">{t.mobile.factsLabel}</p>
-              <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-5">
-                {t.mobile.facts.map(([label, value]) => (
-                  <div key={label}>
-                    <p className="text-[10px] font-extrabold uppercase tracking-[.09em] text-stone-500">{label}</p>
-                    <p className="mt-1 text-lg font-black tracking-tight text-ink">{value}</p>
+              <p className="field-label">{t.booking.howItWorks.title}</p>
+              <div className="mt-3">
+                {t.booking.howItWorks.steps.map(([title, body], index) => (
+                  <div className="flex gap-3 border-b border-slate-400/30 py-3.5 last:border-b-0" key={title}>
+                    <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white text-[11px] font-black text-aegean shadow-sm" aria-hidden="true">{index + 1}</span>
+                    <div className="text-sm">
+                      <p className="font-extrabold text-ink">{title}</p>
+                      <p className="mt-0.5 leading-6 text-stone-600">{body}</p>
+                    </div>
                   </div>
                 ))}
               </div>
             </div>
           </div>
           <div className="min-w-0">
-          <HowItWorks t={t} />
           <BookingForm selection={selection} onSelectionChange={onSelectionChange} onResetSelection={onResetSelection} cars={cars} t={t} language={language} />
           </div>
         </div>
