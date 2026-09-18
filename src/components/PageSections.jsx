@@ -54,6 +54,11 @@ export function Hero({ t, cars, selection, onSelectionChange, onCheckAvailabilit
               <a className="button-primary flex-1 min-[420px]:flex-none" href="#request">{t.nav.cta}<span aria-hidden="true">→</span></a>
               <a className="button-secondary flex-1 border-transparent bg-white/95 min-[420px]:flex-none" href="#included">{t.hero.secondary}</a>
             </div>
+            <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-1.5 text-xs font-semibold text-white/85 sm:mt-5">
+              {t.hero.checks.map((check) => (
+                <li className="flex items-center gap-1.5" key={check}><span aria-hidden="true">✓</span>{check}</li>
+              ))}
+            </ul>
           </div>
 
           <form className="hero-availability absolute -bottom-[9.5rem] left-1/2 z-20 grid w-[calc(100%-1.5rem)] max-w-[73.75rem] -translate-x-1/2 grid-cols-2 overflow-hidden rounded-2xl border border-white/70 bg-white/95 text-ink shadow-[0_24px_70px_rgba(23,24,23,.2)] backdrop-blur-xl sm:-bottom-[5.5rem] sm:w-[calc(100%-2.5rem)] lg:-bottom-9 lg:grid-cols-[1.15fr_1fr_1fr_1fr_auto]" id="hero-availability" onSubmit={submitAvailability} aria-label={t.hero.availability.label}>
@@ -151,6 +156,7 @@ export function Pricing({ t }) {
               <CostRow included><span>{p.fullFuel}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
               <CostRow included><span>{p.held}</span><strong className="shrink-0 text-aegean">€0</strong></CostRow>
               <CostRow included><span>{p.support}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
+              <CostRow included><span>{p.mileage}</span><strong className="shrink-0 text-aegean">{p.included}</strong></CostRow>
             </div>
             <p className="mt-4 text-[11px] leading-5 text-stone-600">{p.meltemiNote}</p>
           </article>
@@ -176,6 +182,7 @@ export function Fleet({ t, cars, onRequest }) {
         <div className="mt-6 max-w-4xl">
           <h2 className="text-[clamp(2.65rem,5vw,4.35rem)] font-black leading-[.94] tracking-[-.063em] [text-wrap:balance]">{t.fleet.title}</h2>
           <p className="mt-5 max-w-2xl text-base leading-7 text-stone-600 lg:text-lg lg:leading-8">{t.fleet.intro}</p>
+          <p className="mt-3 text-sm text-stone-500">{t.fleet.ageNote}</p>
         </div>
         <div className="fleet-scroll mt-10">
           {cars.map((car) => (
@@ -214,7 +221,7 @@ export function Fleet({ t, cars, onRequest }) {
 
 // Each mobile.facts entry is paired by position with a kind here, so the icon
 // tracks the concept (not the raw index) as the list grows.
-const MOBILE_FACT_KINDS = ['insurance', 'cardHold', 'airport', 'driver', 'fuel', 'support']
+const MOBILE_FACT_KINDS = ['insurance', 'cardHold', 'airport', 'driver', 'fuel', 'support', 'mileage']
 
 function MobileFactIcon({ kind }) {
   const commonProps = { className: 'h-5 w-5 sm:h-6 sm:w-6', viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: '1.8', strokeLinecap: 'round', strokeLinejoin: 'round' }
@@ -234,6 +241,9 @@ function MobileFactIcon({ kind }) {
   if (kind === 'fuel') {
     return <svg {...commonProps} aria-hidden="true"><rect x="5.5" y="6" width="7.5" height="14" rx="1" /><path d="M7.5 9.5h3.5" /><path d="M13 9.5h1.8L17.5 12v4.7a1.3 1.3 0 0 1-2.6 0v-2.9a1 1 0 0 0-1-1H13" /><path d="M4 20h11" /></svg>
   }
+  if (kind === 'mileage') {
+    return <svg {...commonProps} aria-hidden="true"><path d="M4.5 15a7.5 7.5 0 1 1 15 0" /><path d="M12 15 15 10.5" /><circle cx="12" cy="15" r="1.2" fill="currentColor" stroke="none" /></svg>
+  }
   return <svg {...commonProps} aria-hidden="true"><path d="M4.5 13v-1a7.5 7.5 0 0 1 15 0v1" /><path d="M4.5 12.5h1.2a2 2 0 0 1 2 2v2a2 2 0 0 1-2 2H5a1.5 1.5 0 0 1-1.5-1.5v-3.5A1 1 0 0 1 4.5 12.5ZM19.5 12.5h-1.2a2 2 0 0 0-2 2v2a2 2 0 0 0 2 2h.7a1.5 1.5 0 0 0 1.5-1.5v-3.5a1 1 0 0 0-1-1Z" /><path d="M16.3 18.5c-.7 1.3-2.1 2-4.3 2" /></svg>
 }
 
@@ -245,6 +255,7 @@ export function MobileShowcase({ t }) {
     'lg:right-[9%] lg:top-[45%]',
     'lg:left-[2%] lg:top-[78%]',
     'lg:right-[2%] lg:top-[78%]',
+    'lg:right-[5%] lg:top-[61%]',
   ]
   const sectionRef = useRef(null)
   const [isVisible, setIsVisible] = useState(false)

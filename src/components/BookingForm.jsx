@@ -207,7 +207,10 @@ export default function BookingForm({ selection, onSelectionChange, onResetSelec
       </div>
       {tripDetails && <TripTotal t={t} tripDetails={tripDetails} />}
       <TurnstileWidget error={errorText('turnstile')} language={language} onToken={handleToken} resetRef={resetTurnstileRef} siteKey={turnstileSiteKey} t={t.booking.turnstile} />
-      <p className="sm:col-span-2 -mb-1 text-xs font-semibold text-stone-500">{t.booking.paymentNote}</p>
+      <div className="sm:col-span-2 -mb-1 space-y-1 text-xs font-semibold text-stone-500">
+        <p>{t.booking.paymentNote}</p>
+        <p>{t.booking.cancellationNote}</p>
+      </div>
       <button className="button-primary mt-1 min-h-14 w-full sm:col-span-2" type="submit" disabled={status === 'submitting' || status === 'validating' || !turnstileToken}>
         {(status === 'submitting' || status === 'validating') && <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/40 border-t-white motion-reduce:animate-none" aria-hidden="true" />}
         {status === 'submitting' ? t.booking.sending : status === 'validating' ? t.booking.validating : t.booking.submit}<span aria-hidden="true">{status === 'idle' || status === 'error' ? '→' : ''}</span>

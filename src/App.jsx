@@ -95,6 +95,7 @@ export default function App() {
               <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10">
                 <div className="flex flex-col items-end gap-2 text-sm text-white/65">
                   <p className="py-1 text-[10px] font-extrabold uppercase tracking-[.12em] text-white/45">{t.footer.location}</p>
+                  <p className="py-1">{t.footer.address}</p>
                   <a className="py-1 transition-colors hover:text-white" href="mailto:hello@meltemirentals.gr">hello@meltemirentals.gr</a>
                   {/* TODO: placeholder number — replace with the real contact line */}
                   <a className="py-1 transition-colors hover:text-white" href="tel:+302242000000">+30 22420 00000</a>
