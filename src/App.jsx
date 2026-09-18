@@ -93,7 +93,7 @@ export default function App() {
             </div>
 
             <div className="flex flex-col items-end gap-8 text-right">
-              <div className="flex flex-col items-end gap-6">
+              <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 sm:gap-10">
                 <div>
                   <p className="text-[10px] font-extrabold uppercase tracking-[.12em] text-white/45">{t.footer.location}</p>
                   <a className="mt-2 inline-block text-lg font-bold transition-colors hover:text-blue-300" href="mailto:hello@meltemirentals.gr">hello@meltemirentals.gr</a>
