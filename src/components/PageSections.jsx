@@ -43,8 +43,8 @@ export function Hero({ t, cars, selection, onSelectionChange, onCheckAvailabilit
             </div>
           </div>
 
-          <div className="hero-copy absolute left-1/2 top-28 z-10 w-[calc(100%-3rem)] max-w-[73.75rem] -translate-x-1/2 text-white sm:bottom-36 sm:top-auto sm:w-[calc(100%-5rem)]">
-            <h1 className="text-[clamp(2.35rem,7vw,5.75rem)] font-extrabold leading-[.93] tracking-[-.067em] [text-wrap:balance] sm:text-[clamp(2.75rem,7vw,5.75rem)]">
+          <div className="hero-copy absolute left-1/2 top-40 z-10 w-[calc(100%-3rem)] max-w-[73.75rem] -translate-x-1/2 text-white sm:bottom-36 sm:top-auto sm:w-[calc(100%-5rem)]">
+            <h1 className="text-[clamp(2.35rem,7vw,5.75rem)] font-extrabold leading-[.93] tracking-[-.067em] [text-wrap:balance] sm:text-[clamp(2.65rem,5.2vw,4.35rem)] 2xl:text-[clamp(4.35rem,4.7vw,5.5rem)]">
               <span className="block">{t.hero.title1}</span>
               <span className="block">{t.hero.title2}</span>
               <span className="block">{t.hero.title3}</span>
@@ -109,7 +109,7 @@ function CostRow({ children, included = false, total = false, featuredTotal = fa
 export function Pricing({ t }) {
   const p = t.pricing
   return (
-    <section className="scroll-mt-24" id="included">
+    <section className="scroll-mt-24 pt-12 sm:pt-0" id="included">
       <div className="page-wrap mb-9 sm:mb-12">
         <SectionMarker number="01" label={p.eyebrow} />
         <div className="mt-6 max-w-5xl">
