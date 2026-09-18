@@ -44,7 +44,6 @@ export const translations = {
     booking: {
       eyebrow: 'Request availability', title: 'Your dates first. The final price next.',
       body: 'Send the basics and we’ll confirm an available car and the complete price before you decide.',
-      ticks: ['No payment to send a request', 'No hidden compulsory extras', 'Clear confirmation before you travel'],
       labels: { name: 'Full name', email: 'Email', pickup: 'Pickup date', return: 'Return date', category: 'Car category', phone: 'Phone / WhatsApp', optional: '(optional)' },
       placeholders: { name: 'e.g. Anna Smith', email: 'anna@email.com', phone: '+30 …' },
       categoryPlaceholder: 'Choose a category', submit: 'Request availability', validating: 'Checking details…', sending: 'Sending request…',
@@ -130,7 +129,7 @@ export const translations = {
       previewItems: [['Ημερομηνίες', 'Τις επιλέγεις'], ['Προσφορά', 'Τελική τιμή'], ['Επιβεβαίωση', 'Πριν φτάσεις'], ['Παραλαβή', 'Αεροδρόμιο Κω']],
     },
     booking: {
-      eyebrow: 'Έλεγξε διαθεσιμότητα', title: 'Ας ξεκινήσουμε με τις ημερομηνίες σου.', body: 'Συμπλήρωσε τη φόρμα και θα επικοινωνήσουμε μαζί σου για τη διαθεσιμότητα και την τελική τιμή.', ticks: ['Δεν απαιτείται πληρωμή για το αίτημα', 'Χωρίς κρυφές επιπλέον χρεώσεις', 'Ξεκάθαρη επιβεβαίωση πριν από το ταξίδι'],
+      eyebrow: 'Έλεγξε διαθεσιμότητα', title: 'Ας ξεκινήσουμε με τις ημερομηνίες σου.', body: 'Συμπλήρωσε τη φόρμα και θα επικοινωνήσουμε μαζί σου για τη διαθεσιμότητα και την τελική τιμή.',
       labels: { name: 'Ονοματεπώνυμο', email: 'Email', pickup: 'Ημερομηνία παραλαβής', return: 'Ημερομηνία επιστροφής', category: 'Κατηγορία αυτοκινήτου', phone: 'Τηλέφωνο / WhatsApp', optional: '(προαιρετικό)' },
       placeholders: { name: 'π.χ. Άννα Παπαδοπούλου', email: 'anna@email.com', phone: '+30 …' },
       categoryPlaceholder: 'Επίλεξε κατηγορία', submit: 'Έλεγξε διαθεσιμότητα', validating: 'Ελέγχουμε τα στοιχεία…', sending: 'Στέλνουμε το αίτημα…',

@@ -332,13 +332,16 @@ export function Booking({ t, cars, selection, onSelectionChange, onResetSelectio
             <SectionMarker number="04" label={t.booking.eyebrow} />
             <h2 className="mt-6 text-[clamp(2.6rem,4.5vw,4rem)] font-black leading-[.94] tracking-[-.064em]" id="booking-form-title">{t.booking.title}</h2>
             <p className="mt-5 max-w-lg text-base leading-7 text-stone-600">{t.booking.body}</p>
-            <div className="mt-8 border-t border-slate-400/30 text-sm font-semibold text-stone-600">
-              {t.booking.ticks.map((tick, index) => (
-                <div className="flex items-center gap-3 border-b border-slate-400/30 py-3.5" key={tick}>
-                  <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-white text-[11px] font-black text-aegean shadow-sm" aria-hidden="true">0{index + 1}</span>
-                  <span>{tick}</span>
-                </div>
-              ))}
+            <div className="mt-8 border-t border-slate-400/30 pt-6">
+              <p className="field-label">{t.mobile.factsLabel}</p>
+              <div className="mt-3 grid grid-cols-2 gap-x-6 gap-y-5">
+                {t.mobile.facts.map(([label, value]) => (
+                  <div key={label}>
+                    <p className="text-[10px] font-extrabold uppercase tracking-[.09em] text-stone-500">{label}</p>
+                    <p className="mt-1 text-lg font-black tracking-tight text-ink">{value}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
           <div className="min-w-0">
